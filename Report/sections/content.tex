@@ -9,65 +9,85 @@
 %% burger@kit.edu
 
 \section{Foundation}
-\label{ch:Foundation}
-
-%% -------------------
-%% | Example content |
-%% -------------------
-General foundation knowledge.
+\label{cha:Foundation}
+This chapter will provide some foundation knowledge for the rest of the paper.
 
 \subsection{Microservice Architecture}
-Explanation of microservice architectures.
+\label{sec:Foundation:MicroserviceArchitecture}
+This section explains the general concepts of a microservice architecture.
 \cite{Dragoni2017}
 
-\subsection{Architecture Extraction}
-\label{sec:FirstContentSection:FirstSubSubSection}
-Explanation of Architecture Extraction.
+\subsection{Asynchronous Communication}
+\label{sec:Foundation:AsyncCommunication}
+This section will explain the basics of asynchronous communication.
 
-\subsection{PCM}
-\label{sec:FirstContentSection:FirstSubSection}
-Explanation of the Palladio Component Model.
+\subsection{Message-based Communication}
+\label{sec:Foundation:MessageBasedCommunication}
+This section will explain what message-based communication is in particular.
+
+\subsection{Software Architecture Extraction (SAR)}
+\label{sec:Foundation:SAR}
+This section will explain Software Architecture Extraction (SAR) in general.
+
+\subsection{Palladio Component Model (PCM)}
+\label{sec:Foundation:PCM}
+This section provides foundation knowledge of the Palladio Component Model (PCM).
 \cite{Becker2008}
 
 \section{Study Design}
-\label{sec:SecondContentSection:FirstSubsection}
-Explain how the literature research is done.
+\label{cha:StudyDesign}
+This chapter will explain the design of the systematic literature research and how it was executed.
 
 \subsection{Study Aim}
-\label{sec:SecondContentSection:SecondSubsection}
-Explain the goal of the paper.
+\label{sec:StudyDesign:StudyAim}
+This section explains the goal of the paper, namely to compare different tools for SAR for asynchronous communication-based systems.
 
 \subsection{Research Questions}
-The research questions I want to to answer in this paper.
+\label{sec:StudyDesign:ResearchQuestions}
+This section presents the research questions we will answer in the following sections.
+
+The research questions are: \\
+\begin{itemize}
+	\item \textbf{RQ1}. What are the tools available for extraction of asynchronous architecture?
+	\item \textbf{RQ2}. To what extend do the tools support software architecture extraction?
+\end{itemize}
 
 \subsection{Selecting the Papers}
-Explanation of how I searched for the papers. The keywords I used and the selection criteria (inclusion/exclusion).
+\label{sec:StudyDesign:SelectingPapers}
+This section explains how the papers were selected, including the keywords used to search for papers and the selection criteria (inclusion/exclusion).
 
-Async Papers:
+Asynchronous Papers found:
 \begin{enumerate}
-	\item \cite{Singh2022ARCHI4MOM}, \cite{Singh2021} (MOM)
-	\item \cite{Alshuqayran2018MiSAR} (MOM)
-	\item \cite{Brosig2011} (MOM)
-	\item \cite{Mayer2018} (HTTP)
-	\item \cite{Kleehaus2018} (HTTP)
-	\item \cite{Ntentos2021} (HTTP)
+	\item ARCHI4MOM \cite{Singh2022ARCHI4MOM}, \cite{Singh2021}
+	\item MiSAR \cite{Alshuqayran2018MiSAR}
+	\item --- \cite{Brosig2011}
+	\item MYCROLYZE \cite{Kleehaus2018} (only supports asynchronous HTTP communication)
+	\item --- \cite{Mayer2018} (only supports asynchronous HTTP communication)
+	\item --- \cite{Ntentos2021} (only supports asynchronous HTTP communication)
 \end{enumerate}
 
 \section{Results}
-Answers to the research questions.
-Analysis of the papers I found.
+\label{cha:Results}
+This chapter will answer the research questions formulated in \ref{sec:StudyDesign:ResearchQuestions} and analyze the papers selected in \ref{sec:StudyDesign:SelectingPapers}.
+This chapter will also feature a table comparing the papers in different aspects:
+\begin{enumerate}
+	\item \textbf{Input} (e.g. source code, artifacts, logs, ...)
+	\item \textbf{Output} (e.g. PCM, UML, ...)
+	\item \textbf{Approach} (how the tools extract the architecture)
+	\item \textbf{End user} (who the result is intended for)
+	\item \textbf{Evaluation metric} (how were the results evaluated, e.g. precision/recall or comparison)
+\end{enumerate}
 
 \section{Discussion}
-Not sure if I need this section.
-
-\section{Threats to Validity}
-Explain the threats to internal and external validity of the study.
+\label{cha:Discussion}
+This chapter will discuss the results of the previous chapter.
 
 \section{Related Work}
-Other papers that are similar to my paper.
-Also say that e.g. MicroART could perhaps support async communication in the future.
-\cite{Granchelli2017MicroART}
-\cite{Ducasse2009}
+\label{cha:RelatedWork}
+This chapter presents other papers which are similar to my work.
+For example \cite{Ducasse2009} ...
+We will also talk about the fact that \cite{Granchelli2017MicroART} and \cite{Langhammer2016} could be extended to support asynchronous communication in the future.
+
 
 
 

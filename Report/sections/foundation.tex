@@ -1,23 +1,43 @@
-This chapter will provide some foundation knowledge for the rest of the paper.
+In the following sections, we will provide some foundation knowledge for the rest of the paper.
 
 \subsection{Microservice Architecture}
 \label{sec:Foundation:MicroserviceArchitecture}
-This section explains the general concepts of a microservice architecture.
-\cite{Dragoni2017}
+In a microservice architecture, the software is partitioned into many small components (``microservices''), which operate independently of each other and communicate via messages \cite{Dragoni2017}.
+This software architecture style allows the construction of highly reusable components which focus on a single task (e.g. applying a watermark to a video).
+This loose coupling allows for independent teams to work on different components or even the use of off-the-shelf components.
+Also, scaling the application can be achieved by simply duplicating the bottlenecked microservices \cite{Dragoni2017}.
+A microservice is defined by its provided- and required-interfaces, which allow for the message-exchange with other components \cite{Singh2021}.
 
-\subsection{Asynchronous Communication}
+\subsection{Asynchronous RESTful Communication}
 \label{sec:Foundation:AsyncCommunication}
-This section will explain the basics of asynchronous communication.
+Microservices that communicate asynchronously are typically realized in one of two kinds.
+Either using a RESTful pattern or using message-based communication. \\
+
+Some systems use microservices that communicate asynchronously via asynchronous HTTP REST interfaces.
+There are two interaction scenarios for this kind of asynchronous communication.
+One possibility is that the initial HTTP request returns an HTTP code 202 (Accepted) and provides a location where the microservice can query the status of the operation.
+Once the operation on the server has finished, the provided location will return the results of the query. \cite{Mayer2018}
+
+Alternatively, the microservice may be required to provide a callback method (e.g. a web hook, \cite{Webhooks}) where the server can send the results once the operation has finished \cite{Mayer2018}. \\
+
+We will refer to both of these communication methods as RESTful asynchronous communication in the following paper.
 
 \subsection{Message-based Communication}
 \label{sec:Foundation:MessageBasedCommunication}
-This section will explain what message-based communication is in particular.
+Contrary to RESTful asynchronous communication, other microservice systems use message-based asynchronous communication.
+These systems deploy a message broker, a component that other components dynamically bind to.
+This message broker is then used to send and receive messages and is responsible for the distribution of these messages.
+Using a message broker allows for better system performance. \cite{Singh2021}
 
 \subsection{Software Architecture Extraction (SAR)}
 \label{sec:Foundation:SAR}
-This section will explain Software Architecture Extraction (SAR) in general.
+Software Architecture Extraction (SAR) is the process of reverse engineering a software architecture from a given system.
+Vital for building this architecture is information about the communication between the different components.
+This information is extracted using either a static (using only static inputs, e.g. source code), dynamic (using runtime information, e.g. logs) or hybrid (using both) approach.
+In the context of asynchronous communication, a static extraction algorithm would in the case of a RESTful asynchronous communication, analyze the HTTP calls made in code to determine the relationships between the components.
+In the case of message-based communication, a static approach is unable to extract a useful architecture, since message-based systems exchange those messages only at runtime and thus the required information about which components communicate with each other can only be retrieved as part of a dynamic or hybrid analysis. \cite{Singh2021,Mayer2018}
 
-\subsection{Palladio Component Model (PCM)}
+\subsection{Palladio Component Model}
 \label{sec:Foundation:PCM}
-This section provides foundation knowledge of the Palladio Component Model (PCM).
-\cite{Becker2008}
+The Palladio Component Model (PCM) is a meta-model for the description of component-based software \cite{Becker2008}.
+It is used to predict the performance properties of component-based software at design-time by specifying a model of the system, its components and how the system is going to be used. \todo{extend}

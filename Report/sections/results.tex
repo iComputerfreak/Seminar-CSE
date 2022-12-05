@@ -1,12 +1,55 @@
-This chapter will answer the research questions formulated in \ref{sec:StudyDesign:ResearchQuestions} and analyze the papers selected in \ref{sec:StudyDesign:SelectingPapers}.
-This chapter will also feature a table comparing the papers in different aspects:
+\autoref{table:results} shows the results of the comparison in tabular format.
+In the following sections, we will talk about each paper individually.
+
+Each approach will be presented using five aspects:
 \begin{enumerate}
-	\item \textbf{Input} (e.g. source code, artifacts, logs, ...)
-	\item \textbf{Output} (e.g. PCM, UML, ...)
-	\item \textbf{Approach} (how the tools extract the architecture)
+	\item \textbf{Input} (e.g. source code or logs)
+	\item \textbf{Approach} (how the extraction process works)
+	\item \textbf{Output} (e.g. PCM or UML)
 	\item \textbf{End user} (who the result is intended for)
-	\item \textbf{Evaluation metric} (how were the results evaluated, e.g. precision/recall or comparison)
+	\item \textbf{Evaluation} (how were the results evaluated)
 \end{enumerate}
+
+\subsection{ARCHI4MOM}
+\label{sec:Results:ARCHI4MOM}
+\textbf{Input.}
+The ARCHI4MOM approach extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} and therefore takes the same inputs.
+The first step in the ARCHI4MOM approach is to instrument the source code with the Jaeger tracing tool \footnote{https://www.jaegertracing.io/} to collect tracing data.
+Using the OpenTracing API, ARCHI4MOM then instruments all microservices to generate trace data, which can be used later to reconstruct the asynchronous communication between the microservices. \cite{Singh2022ARCHI4MOM} % TODO: Also supports MOM
+\\ \\
+\textbf{Approach.}
+ARCHI4MOM extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} to support asynchronous communication.
+This is achieved by adding a dependency to the OpenTracing API to each microservice to introduce a new set of information that was not present earlier \cite{Singh2022ARCHI4MOM}.
+This tracing data is then collected in the form of JavaScript Object Notation (JSON) files, which become the input of the next phase \cite{Singh2022ARCHI4MOM}.
+
+The JSON files will then be used to analyze the structure of the traces.
+For message-based asynchronous communication, this presents a challenge since the information is distributed over different \textit{spans} whereas using synchronous communication, it would be in a single span \cite{Singh2022ARCHI4MOM}.
+To match this inter-component communication using middleware, the called method needs to be matched using the OpenTracing API tags \cite{Singh2022ARCHI4MOM}.
+In the next step, the ARCHI4MOM approach looks for send operations that do not have information about the topic \todo{explain} they send to and fills in this information by retrieving it from other send operations in the tracing data \cite{Singh2022ARCHI4MOM}.
+Then the approach iterates over all sending spans that have a FOLLOWS-FROM or \textit{message-bus} relation \todo{explain} tag and propagate their topics to the receiving spans \cite{Singh2022ARCHI4MOM}.
+
+To reconstruct message-based communication using PMX, the authors extended PMX to support the required Palladio Component Model elements \footnote{https://github.com/PalladioSimulator/Palladio-Addons-Indirections/tree/maste r/bundles/org.palladiosimulator.indirections/model}.
+The authors then implement additional PMX logic to be able to reconstruct asynchronous architectures using these model elements.
+\cite{Singh2022ARCHI4MOM}.
+\\ \\
+\textbf{Output.}
+The output of the ARCHI4MOM approach is a Palladio Component Model (PCM) \cite{Singh2022ARCHI4MOM}.
+This PCM contains the extracted components, as well as the interfaces for communication between each other \cite{Singh2022ARCHI4MOM}.
+The communication channels are represented by \textit{DataChannel}s (representing the middleware) and \textit{DataInterface}s (representing the type of data the interface can send/receive), which are created in the PCM repository as part of the extraction \cite{Singh2022ARCHI4MOM}.
+\\ \\
+\textbf{End User.}
+The output of the ARCHI4MOM approach is a PCM.
+This model can then be used by software architects together with usage scenarios to create simulations, predicting the non-functional properties of the software.
+\\ \\
+\textbf{Evaluation.}
+To evaluate the approach, the authors created a manual PCM of the Flowing Retail sample application \footnote{https://github.com/berndruecker/flowing-retail/tree/master/kafka/java}.
+This manual model was then verified by three developers to be correct and compared to the automatically extracted model using a Goal Question Metric (GQM) plan \cite{VanSolingen2002GQM,Singh2022ARCHI4MOM}.
+Using this plan, both sets of model elements (manual and automatic) are then compared using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
+The automatic approach achieved a precision score of 100\%, a recall score of 95.65\% and an F1 score of 97.8\% \cite{Singh2022ARCHI4MOM}.
+
+% TODO: Answer RQ!
+
+
 
 % TODO: Table has to be in horizontal orientation
 % TODO: Header should be bold

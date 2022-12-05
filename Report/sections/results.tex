@@ -47,6 +47,10 @@ This manual model was then verified by three developers to be correct and compar
 Using this plan, both sets of model elements (manual and automatic) are then compared using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
 The automatic approach achieved a precision score of 100\%, a recall score of 95.65\% and an F1 score of 97.8\% \cite{Singh2022ARCHI4MOM}.
 
+\subsection{MiSAR}
+\label{sec:Results:MiSAR}
+\textbf{Input.}
+
 % TODO: Answer RQ!
 
 
@@ -55,16 +59,23 @@ The automatic approach achieved a precision score of 100\%, a recall score of 95
 % TODO: Header should be bold
 % TODO: Line breaks in cells
 % TODO: table too wide
-\begin{table}
+
+\begin{sidewaystable}
 \centering
-\begin{tabular}{l l l l l l l l}
+\begin{tabular}{| p{3cm} | p{2cm} | p{2cm} | p{4cm} | p{2cm} | p{4cm} | l | l |}
 \toprule
-\textbf{Name} & Input & Output & Approach & End User & Evaluation & Year & Type \\
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Approach} & \textbf{End User} & \textbf{Evaluation} & \textbf{Year} & \textbf{Type} \\
 \midrule
-ARCHI4MOM & tracing data & PCM & Extend PMX & SA & Comparison & 2022 & tool \\
-		  & 			 & 	   &				&    & Precision/Recall/F1 & & \\
+ARCHI4MOM 
+& source code
+& PCM
+& Extend PMX to support asynchronous architectures
+& software architect
+& Comparison with manual architecture
+& 2022
+& tool \\
 \bottomrule
 \end{tabular}
 \caption{Results} % TODO: Explanation text
 \label{table:results}
-\end{table}
+\end{sidewaystable}

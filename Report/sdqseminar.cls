@@ -165,3 +165,5 @@
     }%
     \let\theauthor\@author
 }
+
+\usepackage{rotating}

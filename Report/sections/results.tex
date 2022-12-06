@@ -50,6 +50,18 @@ The automatic approach achieved a precision score of 100\%, a recall score of 95
 \subsection{MiSAR}
 \label{sec:Results:MiSAR}
 \textbf{Input.}
+MiSAR extracts and gathers different data from static artifacts.
+This data includes docker files that assemble the containers for the microservices, docker compose files that orchestrate multi-docker-container systems, java source code, maven pom.xml files, YAML configuration files, documentation and tool support \cite{Alshuqayran2018MiSAR}.
+The java source code is reverse engineered using a tool called Enterprise architect \footnote{http://www.sparxsystems.com.au/products/ea/}, providing UML class diagrams from the source code \cite{Alshuqayran2018MiSAR}.
+Additionally, Zipkin \footnote{https://zipkin.io} is used to trace communication between microservices to build a call graph \cite{Alshuqayran2018MiSAR}.
+Information about latencies was retrieved using TCPDump \footnote{https://www.tcpdump.org} and information about the ports, IP addresses of container, and connectivity between containers were extracted using the Sysdig tool \footnote{https://github.com/draios/sysdig} \cite{Alshuqayran2018MiSAR}.
+This information is all stored in a repository for further use.
+\\ \\
+\textbf{Approach.}
+% TODO: Explain MDE, PIM, PSM; approach transforms from PSM to PIM using mapping rules
+MiSAR is a manual approach that is executed in two phases \cite{Alshuqayran2018MiSAR}.
+The first phase (Recovery Design, RD) defines architectural concepts, which are extracted in the second phase (Recovery Execution, RE) \cite{Alshuqayran2018MiSAR}.
+
 
 % TODO: Answer RQ!
 
@@ -62,17 +74,54 @@ The automatic approach achieved a precision score of 100\%, a recall score of 95
 
 \begin{sidewaystable}
 \centering
-\begin{tabular}{| p{3cm} | p{2cm} | p{2cm} | p{4cm} | p{2cm} | p{4cm} | l | l |}
+% check that total width matches
+\begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{2cm} | p{4cm} | p{1cm} | p{1.2cm} |}
 \toprule
-\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Approach} & \textbf{End User} & \textbf{Evaluation} & \textbf{Year} & \textbf{Type} \\
+\textbf{Name} & \textbf{Input} & \textbf{Approach} & \textbf{Output} & \textbf{End User} & \textbf{Evaluation} & \textbf{Year} & \textbf{Type} \\
 \midrule
-ARCHI4MOM 
+ARCHI4MOM (\cite{Singh2022ARCHI4MOM})
 & source code
-& PCM
 & Extend PMX to support asynchronous architectures
+& PCM
 & software architect
 & Comparison with manual architecture
 & 2022
+& tool \\
+\midrule
+MiSAR (\cite{Alshuqayran2018MiSAR})
+& source code, descriptive files, runtime traces
+& manual extraction approach \todo{extend}
+& 
+& 
+& 
+& 2018
+& manual approach \\
+\midrule
+--- (\cite{Brosig2011})
+& run-time monitoring data
+& combine an existing call path tracing and resource demand estimation to an end-to-end model extraction
+& performance model \todo{which?}
+& 
+& SPECjEnterprise2010 benchmark application; comparison of prediction with measurements
+& 2011
+& tool \\
+\midrule
+MICROLYZE (\cite{Kleehaus2018}) 
+& monitoring data
+& continuously monitor for system changes using a service discovery service; trace HTTP requests using zipkin
+& database with services and their relations; web application to visualize as adjacency matrix
+& system administrators and enterprise or software architects
+& approach was applied to TUM LLCM platform, Travelcompanion service; traffic was generated and result was manually checked
+& 2018
+& tool \\
+\midrule
+--- (\cite{Mayer2018}) 
+& static service information, infrastructure information and runtime logs
+& condense static and dynamic information into single dimension to analyze the evolution over time; visualize information in dashboard
+& aggregated data, visualized in dashboard
+& 
+& use tool in testing environment; check viability of results
+& 2018
 & tool \\
 \bottomrule
 \end{tabular}

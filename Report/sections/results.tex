@@ -61,7 +61,73 @@ This information is all stored in a repository for further use.
 % TODO: Explain MDE, PIM, PSM; approach transforms from PSM to PIM using mapping rules
 MiSAR is a manual approach that is executed in two phases \cite{Alshuqayran2018MiSAR}.
 The first phase (Recovery Design, RD) defines architectural concepts, which are extracted in the second phase (Recovery Execution, RE) \cite{Alshuqayran2018MiSAR}.
+\todo{extend}
+\\ \\
+\textbf{Output.}
+\\ \\
+\textbf{End User.}
+\\ \\
+\textbf{Evaluation.}
 
+\subsection{--- \cite{Brosig2011}}
+\label{sec:Results:Brosig}
+\textbf{Input.}
+The approach by Brosig et. al. uses onlyl monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
+\\ \\
+\textbf{Approach.}
+% only considers parts effectively used at runtime
+The approach presented by Brosig et. al. only extracts the effective architecture \cite{Israr2007interaction} of the system, meaning that only parts that are effectively used at runtime are considered \cite{Brosig2011}.
+The first step in the extraction is the detection of component boundaries which separate components as single entities from the point of view of the system's architect \cite{Brosig2011}.
+After the system boundaries have been determined, the running system is monitored using \textit{call path tracing} \cite{Brosig2011}.
+The resulting \textit{event records} (representing entries or exists of components) are grouped together into \textit{call path event record sets} which contain event records that were triggered by the same system request \cite{Brosig2011}.
+This data can then be used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided interface calls.
+To extract an accurate representation of the system's components and connections between them, a representative usage profile has to be chosen, as the extraction only captures the actual communication that happens during the extraction approach \cite{Brosig2011}.
+After the components and their connection have been extracted, the component-internal performance-relevant control flow has to be modeled.
+This includes the internal behavior as well as the external service calls, the component makes \cite{Brosig2011}.
+
+For the second step, the approach aims to extract model parameters for performance prediction \cite{Brosig2011}.
+This is achieved by extracting branch probabilities and loop iteration numbers from the call paths \cite{Brosig2011}.
+For branching probabilities, mean values are used, whereas loop iteration numbers are represented by a Probability Mass Function (PMF) to allow for accurate representation of cases where a loop is for example either executed twice or ten times \cite{Brosig2011}.
+Next, the approach tries to quantify the resource demands (e.g. CPU, HDD) of the components' internal computations \cite{Brosig2011}.
+This demand is represented by the total processing time minus the time spent waiting for the resource to become available \cite{Brosig2011}.
+These parameters are then averaged over the observed call paths \cite{Brosig2011}.
+The approach is also able to handle e.g. branches that depend on input parameter values \cite{Brosig2011}.
+In this case, the dependency has to be known a-priori for the approach to quantify these dependencies \cite{Brosig2011}.
+
+In the third step, the performance model is calibrated by comparing its predictions with measurements on the real system \cite{Brosig2011}.
+The correction to be done when measuring a deviation between the prediction and the measurement is done by increasing a factor of overhead and accounting for delays produced by the middleware stack, the system runs on \cite{Brosig2011}.
+% Continue reading Proof of Concept for more infos
+\\ \\
+\textbf{Output.}
+% Output is PCM
+\\ \\
+\textbf{End User.}
+\\ \\
+\textbf{Evaluation.}
+
+\subsection{MICROLYZE \cite{Kleehaus2018}}
+\label{sec:Results:Microlyze}
+\textbf{Input.}
+\\ \\
+\textbf{Approach.}
+\\ \\
+\textbf{Output.}
+\\ \\
+\textbf{End User.}
+\\ \\
+\textbf{Evaluation.}
+
+\subsection{--- \cite{Mayer2018}}
+\label{sec:Results:Mayer}
+\textbf{Input.}
+\\ \\
+\textbf{Approach.}
+\\ \\
+\textbf{Output.}
+\\ \\
+\textbf{End User.}
+\\ \\
+\textbf{Evaluation.}
 
 % TODO: Answer RQ!
 
@@ -75,7 +141,9 @@ The first phase (Recovery Design, RD) defines architectural concepts, which are 
 \begin{sidewaystable}
 \centering
 % check that total width matches
-\begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{2cm} | p{4cm} | p{1cm} | p{1.2cm} |}
+\resizebox{\textwidth}{!}{
+%                 Name       Input    Approach Output   User     Eval     Year     Type
+\begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{1.5cm} | p{4cm} | p{1cm} | p{1.2cm} |}
 \toprule
 \textbf{Name} & \textbf{Input} & \textbf{Approach} & \textbf{Output} & \textbf{End User} & \textbf{Evaluation} & \textbf{Year} & \textbf{Type} \\
 \midrule
@@ -100,7 +168,7 @@ MiSAR (\cite{Alshuqayran2018MiSAR})
 --- (\cite{Brosig2011})
 & run-time monitoring data
 & combine an existing call path tracing and resource demand estimation to an end-to-end model extraction
-& performance model \todo{which?}
+& PCM
 & 
 & SPECjEnterprise2010 benchmark application; comparison of prediction with measurements
 & 2011
@@ -125,6 +193,7 @@ MICROLYZE (\cite{Kleehaus2018})
 & tool \\
 \bottomrule
 \end{tabular}
+}
 \caption{Results} % TODO: Explanation text
 \label{table:results}
 \end{sidewaystable}

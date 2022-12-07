@@ -45,7 +45,7 @@ This model can then be used by software architects together with usage scenarios
 To evaluate the approach, the authors created a manual PCM of the Flowing Retail sample application \footnote{https://github.com/berndruecker/flowing-retail/tree/master/kafka/java}.
 This manual model was then verified by three developers to be correct and compared to the automatically extracted model using a Goal Question Metric (GQM) plan \cite{VanSolingen2002GQM,Singh2022ARCHI4MOM}.
 Using this plan, both sets of model elements (manual and automatic) are then compared using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
-The automatic approach achieved a precision score of 100\%, a recall score of 95.65\% and an F1 score of 97.8\% \cite{Singh2022ARCHI4MOM}.
+The automatic approach achieved a precision score of 100\%, a recall score of 95.65\% and an F1 score of 97.8\% \cite{Singh2022ARCHI4MOM}. \todo{should I include the results or not?}
 
 \subsection{MiSAR}
 \label{sec:Results:MiSAR}
@@ -72,12 +72,14 @@ The first phase (Recovery Design, RD) defines architectural concepts, which are 
 \subsection{--- \cite{Brosig2011}}
 \label{sec:Results:Brosig}
 \textbf{Input.}
-The approach by Brosig et. al. uses onlyl monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
+The approach by Brosig et al. uses onlyl monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
 \\ \\
 \textbf{Approach.}
 % only considers parts effectively used at runtime
-The approach presented by Brosig et. al. only extracts the effective architecture \cite{Israr2007interaction} of the system, meaning that only parts that are effectively used at runtime are considered \cite{Brosig2011}.
-The first step in the extraction is the detection of component boundaries which separate components as single entities from the point of view of the system's architect \cite{Brosig2011}.
+The approach presented by Brosig et al. only extracts the effective architecture \cite{Israr2007interaction} of the system, meaning that only parts that are effectively used at runtime are considered \cite{Brosig2011}.
+The first step in the extraction of the effective architecture.
+Before the extraction process can begin, component boundaries, which separate components as single entities from the point of view of the system's architect, need to be defined \cite{Brosig2011}.
+This can be either done manually by a software architect or automatically using static code analysis \cite{Brosig2011}.
 After the system boundaries have been determined, the running system is monitored using \textit{call path tracing} \cite{Brosig2011}.
 The resulting \textit{event records} (representing entries or exists of components) are grouped together into \textit{call path event record sets} which contain event records that were triggered by the same system request \cite{Brosig2011}.
 This data can then be used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided interface calls.
@@ -100,10 +102,16 @@ The correction to be done when measuring a deviation between the prediction and 
 \\ \\
 \textbf{Output.}
 % Output is PCM
+The output of the approach by Brosig et al. is a performance model \cite{Brosig2011}.
+In their proof-of-concept implementation, they generate a Palladio Component Model (PCM) \cite{Brosig2011}.
 \\ \\
 \textbf{End User.}
+The end user for this approach is e.g. a software architect, which uses the performance model to predict software quality attributes.
 \\ \\
 \textbf{Evaluation.}
+The evaluation of the approach was done by implementing it and applying it to a case study of a Java Enterprise Edition application \cite{Brosig2011}.
+The application used was the SPECjEnterprise2010 benchmark \footnote{https://www.spec.org/jEnterprise2010/}.
+
 
 \subsection{MICROLYZE \cite{Kleehaus2018}}
 \label{sec:Results:Microlyze}

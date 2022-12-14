@@ -11,7 +11,6 @@
 }
 
 @article{Ntentos2021,
-   abstract = {One of the chief problems in software architecture is avoiding architecture model drift and erosion in all kinds of complex software systems. Microservice-based systems introduce new challenges in this context, as they often use a large variety of technologies in their latest iteration, and are changed and released very frequently. Existing solutions that can be used to reconstruct architecture models fall short in addressing these new challenges, as they cannot easily cope with continuous evolution, their accuracy is too low, and highly polyglot settings are not supported well. In this work, we report on a research study aiming to design a highly accurate architecture model abstraction approach for comprehending component architecture models of highly polyglot systems that can cope with continuous evolution. After analyzing the results of related studies, we found two possible architecture model abstraction approaches that meet the requirements of our study: an opportunistic, and a reusable semi-automatic detector-based approach. We have conducted an empirical case study for validation and comparison of the two approaches. We conclude that both detector approaches are feasible. In our case study, the reusable approach breaks even in terms of time and effort needed for establishing reuse, if modest reuse of detectors is possible, and is producing slightly more high quality and evolution-stable solutions than the opportunistic approach.},
    author = {Evangelos Ntentos and Uwe Zdun and Konstantinos Plakidas and Patric Genfer and Sebastian Geiger and Sebastian Meixner and Wilhelm Hasselbring},
    doi = {10.1007/s00607-021-01002-z},
    issn = {14365057},
@@ -22,7 +21,6 @@
    year = {2021},
 }
 @inproceedings{Granchelli2017MicroART,
-   abstract = {Today the microservice architectural style is being adopted by many key technological players such as Netflix, Amazon, The Guardian. A microservice architecture is composed of a large set of small services, each running in its own process and communicating with lightweight mechanisms (often via REST APIs). If on one side having a large set of independently developed services helps in terms of developer productivity, scalability, maintainability, on the other side it is very difficult to have a clear understanding of the overall architecture of a microservice-based software system, specially when the deployment and operation of the involved microservices evolves at run-time. In this paper we present MicroART, an architecture recovery approach for microservice-based systems. By using Model-Driven Engineering techniques, we leverage a suitably defined domain-specific language for representing the key aspects of the architecture of a microservice-based system and provide a tool-chain for automatically extracting architecture models of the system. The only inputs of MicroART are: (i) a GitHub repository containing the source code of the system and (ii) a reference to the container engine managing it. We validated MicroART on a publicly available benchmark system, with promising results.},
    author = {Giona Granchelli and Mario Cardarelli and Paolo Di Francesco and Ivano Malavolta and Ludovico Iovino and Amleto Di Salle},
    doi = {10.1109/ICSAW.2017.48},
    journal = {Proceedings - 2017 IEEE International Conference on Software Architecture Workshops, ICSAW 2017: Side Track Proceedings},
@@ -30,7 +28,6 @@
    year = {2017},
 }
 @inproceedings{Kleehaus2018,
-   abstract = {Microservices are an approach to distributed systems that promote the use of finely grained services with their own lifecycles. This architecture style encourages high decoupling, independent deployment, operation and maintenance. However, those benefits also leave a certain aftertaste, especially in continuous documentation of the overall architecture. It is fundamental to keep track of how microservices emerge over time. This knowledge is documented manually in Enterprise Architecture (EA) tools, which leads to an obsolete status. For that reason, we present a novel multi-layer microservice architecture recovery approach called MICROLYZE that recovers the infrastructure in realtime based on the EA model involving the business, application, hardware layer and the corresponding relationship between each other. It leverages existing monitoring tools and combines the run-time data with static built-time information. Hereby, MICROLYZE provide tool support for mapping the business activities with technical transactions in order to recover the correlation between the business and application layer.},
    author = {Martin Kleehaus and Ömer Uludağ and Patrick Schäfer and Florian Matthes},
    doi = {10.1007/978-3-319-92901-9_14},
    issn = {18651348},
@@ -40,7 +37,6 @@
    year = {2018},
 }
 @inproceedings{Yazdi2021,
-   abstract = {In response to the growth of demand for web services, there is a rapid increase in distributed systems. Accordingly, software architects design components in a modular fashion to allow for higher flexibility and scalability. In such an infrastructure, a variety of microservices are continuously evolving to respond to the needs of every application. These microservices asynchronously provide reusable modules for other services. To gain valuable insights into the actual software or dynamic user behaviors within distributed systems, data mining, and process mining disciplines provide many powerful data-driven analysis techniques. However, gaining reliable insights into the overall architecture of a heterogeneous distributed system is proved to be challenging and is a tedious task. In this paper, on the one hand, we present a novel approach that enables domain experts to reverse engineer the architecture of the distributed system and monitor its status. On the other hand, it allows the analysis and extraction of new insights about dynamic usage patterns within a distributed environment. With the help of two case studies under real-life conditions, we have assessed our methodology and demonstrated the validity of our approach to discover new insights and bottlenecks in the system.},
    author = {M. Amin Yazdi and Marius Politze},
    doi = {10.1007/978-3-030-63089-8_14},
    issn = {21945365},
@@ -50,7 +46,6 @@
    year = {2021},
 }
 @inproceedings{Alshuqayran2018MiSAR,
-   abstract = {Micro service architectures are rapidly establishing themselves in the software industry as a more efficient and effective substitute for monolithic applications. In a micro service architecture, the application is broken down into many small elements called micro services. These are managed in a distributed way and typically involve several development teams. In such an environment, an architectural model can get lost along the way, making it difficult to perform many downstream software engineering tasks, such as migration, audit, integration or impact analysis. To address this problem, we are developing support for Micro Service Architecture Recovery (MiSAR) using a Model Driven Engineering approach. In this paper, we describe an empirical study which aims to identify the core elements of our approach, by undertaking manual analysis on 8 micro service-based open source projects. From this analysis, we define a metamodel for micro service-based architectures and a set of mapping rules which map between the software and the metamodel. The resulting metamodel and mapping rules provide a solid foundation for any micro service architecture recovery approach and hence are a key first step towards managing the architectural integrity of micro service-based applications.},
    author = {Nuha Alshuqayran and Nour Ali and Roger Evans},
    doi = {10.1109/ICSA.2018.00014},
    journal = {Proceedings - 2018 IEEE 15th International Conference on Software Architecture, ICSA 2018},
@@ -58,7 +53,6 @@
    year = {2018},
 }
 @inproceedings{Mayer2018,
-   abstract = {Microservices decouple network-accessible system components to support independent development, deployment, and scalability. The architecture of microservice-based software systems is typically not de?ned upfront but emerges by dynamically assembling services to systems. This makes it hard to extract component relations from static sources since component relationships may only become evident at runtime. Existing systems focus either on the static structure of service relations, neglecting runtime properties, or on (short-term) monitoring of runtime properties to detect errors. We present an approach to extract and analyze the architecture of a microservice-based software system based on a combination of static service information with infrastructure-related and aggregated runtime information.},
    author = {Benjamin Mayer and Rainer Weinreich},
    doi = {10.1109/SOSE.2018.00012},
    journal = {Proceedings - 12th IEEE International Symposium on Service-Oriented System Engineering, SOSE 2018 and 9th International Workshop on Joint Cloud Computing, JCC 2018},
@@ -66,7 +60,6 @@
    year = {2018},
 }
 @inproceedings{Walker2021,
-   abstract = {The adoption of Microservice Architecture (MSA) is rapidly becoming standard for modern software development. However, the added benefits of using a distributed architecture, including reliability and scalability, come with a cost in increasing the system’s complexity. One way developers attempt to mitigate the effects of an overly complicated system is through Systematic Architecture Reconstruction (SAR), which creates a high-level overview of the system concerns. This is typically done manually, which takes a great amount of effort from the developers. This paper proposes a method for automatically completing SAR of an MSA application through code analysis and demonstrating it on a case study on an existing microservice benchmark application.},
    author = {Andrew Walker and Ian Laird and Tomas Cerny},
    doi = {10.1007/978-981-33-6385-4_21},
    issn = {18761119},
@@ -76,7 +69,6 @@
    year = {2021},
 }
 @inproceedings{Langhammer2016,
-   abstract = {Reverse engineering a software system is challenged by the typically very limited information available about existing systems. Useful reverse engineering tasks include recovering a system's architectural, behavioral, and usage models, which can then be leveraged to answer important questions about a system. For example, using such models to analyze and predict a system's non-functional properties would help to efficiently assess the system's current state, planned adaptations, scalability issues, etc. Existing approaches typically only extract a system's static architecture, omitting the dynamic information that is needed for such analyses. The contribution of this paper is an automated technique that extracts a system's static architecture, behavior, and usage models from very limited, but readily available information: source code and test cases. These models can then be fed into known performance, reliability, and cost prediction techniques. We evaluated our approach for accuracy against systems with already established usage models, and observed that our approach finds the correct, but more detailed usage models. We also analyzed 14 open source software systems spanning over 2 million lines of code to evaluate the scalability of our approach.},
    author = {Michael Langhammer and Arman Shahbazian and Nenad Medvidovic and Ralf H. Reussner},
    doi = {10.1109/WICSA.2016.35},
    journal = {Proceedings - 2016 13th Working IEEE/IFIP Conference on Software Architecture, WICSA 2016},
@@ -84,7 +76,6 @@
    year = {2016},
 }
 @inproceedings{Singh2021,
-   abstract = {Software systems architected using multiple technologies are becoming popular. Many developers use these technologies as it offers high service quality which has often been optimized in terms of performance. In spite of the fact that performance is a key to the technology-mixed software applications, still there a little research on performance evaluation approaches explicitly considering the extraction of architecture for modelling and predicting performance. In this paper, we discuss the opportunities and challenges in applying existing architecture extraction approaches to support model-driven performance prediction for technology-mixed software. Further, we discuss how it can be extended to support a message-based system. We describe how various technologies deriving the architecture can be transformed to create the performance model. In order to realise the work, we used a case study from the energy system domain as an running example to support our arguments and observations throughout the paper.},
    author = {Snigdha Singh and Yves Richard Kirschner and Anne Koziolek},
    doi = {10.1145/3447545.3451201},
    journal = {ICPE 2021 - Companion of the ACM/SPEC International Conference on Performance Engineering},
@@ -217,4 +208,12 @@
   pages={474--492},
   year={2007},
   publisher={Elsevier}
+}
+@inproceedings{Mayer2017dashboard,
+  title={A dashboard for microservice monitoring and management},
+  author={Mayer, Benjamin and Weinreich, Rainer},
+  booktitle={2017 IEEE International Conference on Software Architecture Workshops (ICSAW)},
+  pages={66--69},
+  year={2017},
+  organization={IEEE}
 }

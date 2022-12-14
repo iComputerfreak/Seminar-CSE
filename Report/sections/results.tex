@@ -109,42 +109,101 @@ In their proof-of-concept implementation, they generate a Palladio Component Mod
 The end user for this approach is e.g. a software architect, which uses the performance model to predict software quality attributes.
 \\ \\
 \textbf{Evaluation.}
-The evaluation of the approach was done by implementing it and applying it to a case study of a Java Enterprise Edition application \cite{Brosig2011}.
+The evaluation of the approach was accomplished by implementing it and applying it to a case study of a Java Enterprise Edition application \cite{Brosig2011}.
 The application used was the SPECjEnterprise2010 benchmark \footnote{https://www.spec.org/jEnterprise2010/}.
 
 
 \subsection{MICROLYZE \cite{Kleehaus2018}}
 \label{sec:Results:Microlyze}
 \textbf{Input.}
+Microlyze uses runtime data from a service discovery service, as well as manual inputs (e.g. semantic descriptions, mappings to technical requests) to reconstruct the software architecture \cite{Kleehaus2018}.
 \\ \\
 \textbf{Approach.}
+% TODO: Business Process Modeller and Activity Mapper are controlled/fed by the user via a web interface
+The Microlyze recovery approach is executed in six phases, which are meant to be executed continuously \cite{Kleehaus2018}.
+The first phase rebuilds the current system architecture by checking a service discovery service (e.g., Eureka \footnote{https://github.com/Netflix/eureka} or Consul \footnote{https://www.consul.io}) and updating the status of the services in the current architecture \cite{Kleehaus2018}.
+
+The second phase uses the IP addresses and ports retrieved from the service discovery service to establish a link between the services and the hardware used \cite{Kleehaus2018}.
+Together with the IP addresses and ports, a monitoring agent has to be installed on each hardware component to retrieve additional information about the hardware \cite{Kleehaus2018}.
+Additionally, a monitoring probe is installed on each microservice to observe the HTTP communication \cite{Kleehaus2018}.
+The probe injects tracing data in the HTTP headers and therefore helps to gather timing data \cite{Kleehaus2018}.
+The approach then collects additional infrastructure and software-specific data (e.g., endpoint name, class, method, HTTP request) and attaches this information as annotations \cite{Kleehaus2018}.
+Using this data, the approach is then able to detect the dependencies between the microservices by following identifiers in the HTTP requests during runtime \cite{Kleehaus2018}.
+This tracing is done using zipkin \footnote{https://github.com/openzipkin/zipkin}, streamed via apache kafka to Microlyze and then stored in a cassandra database \cite{Kleehaus2018}.
+Microlyze additionally classifies each service on basis of the distributed tracing data \cite{Kleehaus2018}.
+For example, if the first accessed microservice is identical in most requests, it is classified as a gateway service \cite{Kleehaus2018}.
+
+In the third phase, all user transactions are stored in a database, including what the user does and in which order \cite{Kleehaus2018}.
+These user transactions are then mapped to business transactions using a business process modeller \cite{Kleehaus2018}.
+The information about the user transactions is used to create an association between the business transactions and the microservices that process these transactions \cite{Kleehaus2018}.
+
+The fourth phase is responsible for defining semantic descriptions to each business activity, that can be performed by a user (e.g. \textit{register}, \textit{open shopping cart}, etc.) \cite{Kleehaus2018}.
+
+After the business activities have been augmented with descriptions, phase five is able to create a mapping between the business activities (``a sequence of related events that together contribute to serve a user request'' \cite{Kleehaus2018}) and the technical requests extracted by zipkin \cite{Kleehaus2018}.
+For this purpose, the authors enhanced the business process modeller with the regular expression language in order to describe technical requests \cite{Kleehaus2018}.
+These regular expressions are stored in the database and matched on new incoming transactions to detect, if they might refer to an already modelled business activity \cite{Kleehaus2018}.
+
+Finally, the sixth phase polls the service discovery service continuously to receive updates about unregistered or newly registered services \cite{Kleehaus2018}.
+Services that are no longer registered are marked as such and unknown user requests that cannot be mapped to an existing business activity using the regular expressions are added to a list of unmapped URL endpoints \cite{Kleehaus2018}.
+Changes to the underlying infrastructure are detected by changes in IP addresses or ports and lead to automatic adaptions in the architecture model \cite{Kleehaus2018}.
 \\ \\
 \textbf{Output.}
+The results of the architecture extraction are displayed to the user as an adjacency matrix \cite{Kleehaus2018}.
 \\ \\
 \textbf{End User.}
+The end users of the approach are administrators and enterprise or software architects \cite{Kleehaus2018}.
 \\ \\
 \textbf{Evaluation.}
-
+To evaluate the appraoch, the authors developed a prototype and applied it to the TUM LLCM platform \footnote{https://www.cs.cit.tum.de/bpm/krcmar/research/finished-projects/tum-llcm-tum-living-lab-connected-mobility/} \cite{Kleehaus2018}.
+They developed a service called \textit{Travelcompanion} which is meant to form travel groups to save on travel costs \cite{Kleehaus2018}.
+To discover the relationships between the components, the authors produced traffic using JMeter \footnote{https://jmeter.apache.org} \cite{Kleehaus2018}.
+After step three completed, the authors enhanced the technical transactions with a business semantic and mapped the business activities to user transactions \cite{Kleehaus2018}.
 \subsection{--- \cite{Mayer2018}}
 \label{sec:Results:Mayer}
 \textbf{Input.}
+The approach uses static information, provided by configuration files and static information about services (e.g., name, version, etc.) \cite{Mayer2018}.
+Additionally, runtime communication between the microservices is collected and aggregated \cite{Mayer2018}.
 \\ \\
 \textbf{Approach.}
+The approach presented by Mayer and Weinreich works in three steps, which are modeled by three main components \cite{Mayer2018}.
+The first step---data collection---uses the \textit{Data Collection Library} to collect and provide static and runtime data for the architecture extraction components \cite{Mayer2018}.
+This library collects and provides service-, interaction-, and infrastructure-related information using Swagger \footnote{https://swagger.io} to generate API descriptions and infrastructure-specific information providers (e.g., configuration files) that are configured by the user \cite{Mayer2018}.
+The second step---data aggregation---uses the \textit{Aggregation Service} to aggregate the information collected in the first step \cite{Mayer2018}.
+Lastly, the third step---data combination---uses the \textit{Management Service} combines the information from the different microservices and stores it in a data model \cite{Mayer2018}.
+
+The authors also differentiate between three different kinds, or phases, of architecture extractions \cite{Mayer2018}.
+The first phase is the static information extraction.
+This extraction starts after a new service is deployed \cite{Mayer2018}.
+Using swagger, a JSON representation of the service is sent to the \textit{Management Service}, which uses this information (namely the name and version of the service) to identify, whether the deployed service is a new instance of an already existing service, or a new service altogether \cite{Mayer2018}.
+This phase of static architecture extraction finishes, by storing all static service information in the central \textit{Management Service} information database \cite{Mayer2018}.
+
+The second phase concerns the extraction of infrastructure information \cite{Mayer2018}.
+This phase builds on the information collected in the first phase and creates the according service instance node in the \textit{Management Service}'s database \cite{Mayer2018}.
+This database is stored as a graph with directed edges, connecting the newly inserted service instance node to the necessary services and physical infrastructure information \cite{Mayer2018}.
+If the nodes representing the physical infrastructure the service was deployed on (host and region) do not already exist, the \textit{Management Service} creates them.
+As with the first phase, all information is stored in the information database at the end of the extraction \cite{Mayer2018}.
+
+The third and last phase is responsible for extracting the runtime information.
+For this purpose, all outgoing and incoming requests of a microservice are logged to a local file, including their timestamp, response time, response code, the ID of the source service instance, the URL of the target service instance, and the requested method \cite{Mayer2018}.
+The \textit{Aggregation Service} consumes these log files periodically via REST interfaces and aggregates them \cite{Mayer2018}.
+The aggregation condenses requests that have the same source and destination instance, the same method and the same response \cite{Mayer2018}.
+The aggregated requests contain the time interval, the number of requests, and the average, maximum, and minimum response time \cite{Mayer2018}.
+Lastly, these aggregated requests are then sent to the \textit{Management Service}, which stores them in its database \cite{Mayer2018}.
+The \textit{Management Service} can also use this information to mark services as inactive, if it receives no runtime information anymore \cite{Mayer2018}.
 \\ \\
 \textbf{Output.}
+The output of this approach is a database containing a directed graph that represents the system's architecture, as well as aggregated runtime information (e.g., response times) about the different requests \cite{Mayer2018}.
 \\ \\
 \textbf{End User.}
+The end users of the output of this approach are architects, developers, and operation experts \cite{Mayer2018}.
 \\ \\
 \textbf{Evaluation.}
+The authors conducted a combined survey and interview study (\cite{Mayer2017dashboard}) and used the feedback to construct a microservice dashboard that supports the different use cases identified by the survey \cite{Mayer2018}.
+The authors then built a test scenario consisting of three microservices to test the long-term data collection capabilities of their approach \cite{Mayer2018}.
 
 % TODO: Answer RQ!
 
-
-
-% TODO: Table has to be in horizontal orientation
-% TODO: Header should be bold
-% TODO: Line breaks in cells
-% TODO: table too wide
+% TODO: What is a tool/approach/... ? Define in paper
 
 \begin{sidewaystable}
 \centering

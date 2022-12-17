@@ -8,6 +8,7 @@ This loose coupling allows for independent teams to work on different components
 Also, scaling the application can be achieved by simply duplicating the bottlenecked microservices \cite{Dragoni2017}.
 A microservice is defined by its provided- and required-interfaces, which allow for the message-exchange with other components \cite{Singh2021}.
 
+
 \subsection{Asynchronous RESTful Communication}
 \label{sec:Foundation:AsyncCommunication}
 Microservices that communicate asynchronously are typically realized in one of two kinds.
@@ -22,12 +23,15 @@ Alternatively, the microservice may be required to provide a callback method (e.
 
 We will refer to both of these communication methods as RESTful asynchronous communication in the following paper.
 
+
 \subsection{Message-based Communication}
 \label{sec:Foundation:MessageBasedCommunication}
 Contrary to RESTful asynchronous communication, other microservice systems use message-based asynchronous communication.
-These systems deploy a message broker, a component that other components dynamically bind to.
-This message broker is then used to send and receive messages and is responsible for the distribution of these messages.
-Using a message broker allows for better system performance. \cite{Singh2021}
+These systems use messages or events to facilitate communication between its microservices.
+These messages or events are typically sent using a messaging system (e.g., Java Message Service, JMS \footnote{https://www.oracle.com/technical-resources/articles/java/intro-java-message-service.html}) or a message broker (e.g., Apache Kafka \footnote{https://github.com/berndruecker/Dowing-retail/tree/master/kafka/java} or RabbitMQ \footnote{https://www.rabbitmq.com}).
+These messaging systems or brokers provide a reliable, scalable and decoupled way for the microservices to communicate with each other.
+Using a message broker also allows for better system performance \cite{Singh2021}.
+
 
 \subsection{Software Architecture Extraction (SAR)}
 \label{sec:Foundation:SAR}
@@ -37,7 +41,14 @@ This information is extracted using either a static (using only static inputs, e
 In the context of asynchronous communication, a static extraction algorithm would in the case of a RESTful asynchronous communication, analyze the HTTP calls made in code to determine the relationships between the components.
 In the case of message-based communication, a static approach is unable to extract a useful architecture, since message-based systems exchange those messages only at runtime and thus the required information about which components communicate with each other can only be retrieved as part of a dynamic or hybrid analysis. \cite{Singh2021,Mayer2018}
 
+
 \subsection{Palladio Component Model}
 \label{sec:Foundation:PCM}
+%CG
 The Palladio Component Model (PCM) is a meta-model for the description of component-based software \cite{Becker2008}.
-It is used to predict the performance properties of component-based software at design-time by specifying a model of the system, its components and how the system is going to be used. \todo{extend}
+It is used to predict the performance properties of component-based software at design-time by specifying a model of the system, its components and how the system is going to be used.
+A PCM consists of four main views that represent the aspects of the system.
+The Component View represents the functional structure of the system, i.e. the components, their interfaces and, the dependencies between them.
+The Resource View represents the resources (e.g., CPU, memory, databases, libraries) required by the system.
+The Allocation View shows, which components are allocated to which resources.
+Finally, the Repository View represents the data structures and operations provided by the system's components as well as the relationships between them. \cite{Becker2008}

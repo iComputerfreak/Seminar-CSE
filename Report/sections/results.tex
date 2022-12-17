@@ -193,6 +193,7 @@ The \textit{Management Service} can also use this information to mark services a
 \\ \\
 \textbf{Output.}
 The output of this approach is a database containing a directed graph that represents the system's architecture, as well as aggregated runtime information (e.g., response times) about the different requests \cite{Mayer2018}.
+This information is visualized in a web interface.
 \\ \\
 \textbf{End User.}
 The end users of the output of this approach are architects, developers, and operation experts \cite{Mayer2018}.
@@ -201,13 +202,44 @@ The end users of the output of this approach are architects, developers, and ope
 The authors conducted a combined survey and interview study (\cite{Mayer2017dashboard}) and used the feedback to construct a microservice dashboard that supports the different use cases identified by the survey \cite{Mayer2018}.
 The authors then built a test scenario consisting of three microservices to test the long-term data collection capabilities of their approach \cite{Mayer2018}.
 
-% TODO: Answer RQ!
-
 % TODO: What is a tool/approach/... ? Define in paper
+
+\subsection{Answering the Research Questions}
+\label{sec:Results:AnsweringRQ}
+
+\subsubsection{Research Question 1}
+\textbf{What are the tools available for the extraction of asynchronous architectures of microservice systems?}
+\\ \\
+In the previous sections, we presented five approaches that are able to extract the architecture of microservice systems.
+Each of these systems is able to handle asynchronous REST communication and in the case of \cite{Singh2022ARCHI4MOM,Alshuqayran2018MiSAR,Brosig2011}, the approaches also support the extraction of message-based asynchronous communication architectures as described in \autoref{sec:Foundation:MessageBasedCommunication}.
+
+\subsubsection{Research Question 2}
+\textbf{To what extend do the tools support software architecture extraction?}
+The extend to which the approaches support the extraction of asynchronous architecture differs.
+
+The ARCHI4MOM approach (\cite{Singh2022ARCHI4MOM}) extracts the repository and part of the system model of the Palladio Component Model \cite{Singh2022ARCHI4MOM}.
+It is not able yet to extract a usage model to complete the PCM \cite{Singh2022ARCHI4MOM}.
+Another limitation of ARCHI4MOM is that it is not able to extract the architecture of mixed-technology systems, i.e. systems that use both synchronous and asynchronous communication between their components \cite{Singh2022ARCHI4MOM}.
+
+The MiSAR approach (\cite{Alshuqayran2018MiSAR}) \todo{Extend}
+
+The approach presented by Brosig et al. (\cite{Brosig2011}) presents and end-to-end model extraction that results in a performance model \cite{Brosig2011}.
+Their proof-of-concept implementation showed, that it is possible to extract full Palladio Component Models, including usage models \cite{Brosig2011}.
+% TODO: Problem, because unused components will not be part of architecture model and therefore cannot be identified as unused
+The approach only considers runtime data, which means parts of the system architecture which are not active during extraction will not be represented.
+
+The MICROLYZE approach is meant to be used continuously, which means it will be invoked on every change to the code or architecture, thus resulting in an up-to-date performance model of the system.
+Due to the fact that MICROLYZE keeps the architecture model data in a database, the architecture does not have to be extracted anew each time, a part of the system changes.
+A limitation of MICROLYZE is that it requires a service discovery service (like Eureka or Consul) to fully work.
+Additionally, MICROLYZE only supports REST-based communication and is not able to extract the architecture of microservice systems that use message-based communication \cite{Kleehaus2018}.
+
+The approach of Mayer and Weinreich only supports REST-based communication as well.
+Like MICROLYZE, it is meant to be used continuously and also holds model data in a database to be able to persist information between invocations.
+The results are visualized in a web interface.
 
 \begin{sidewaystable}
 \centering
-% check that total width matches
+% TODO: Update table
 \resizebox{\textwidth}{!}{
 %                 Name       Input    Approach Output   User     Eval     Year     Type
 \begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{1.5cm} | p{4cm} | p{1cm} | p{1.2cm} |}

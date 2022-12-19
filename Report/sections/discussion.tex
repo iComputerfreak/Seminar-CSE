@@ -1,1 +1,42 @@
-This chapter will discuss the results of the previous chapter.
+The presented approaches differ in the type of asynchronous communication they support.
+ARCHI4MOM, MiSAR and the approach presented by Brosig et al. all support message-based asynchronous communication as presented in \autoref{sec:Foundation:MessageBasedCommunication}, while MICROLYZE and the approach presented by Mayer and Weinreich only support asynchronous communication via HTTP REST as explained in \autoref{sec:Foundation:AsyncCommunication}.
+
+Additionally, the approaches can be grouped by the type of input they require.
+MiSAR and the approach presented by Mayer and Weinreich both require static data (e.g. source code) as well as dynamic/runtime data (e.g. tracing data, logs) \cite{Alshuqayran2018MiSAR,Mayer2018}.
+ARCHI4MOM, MICROLYZE and the approach presented by Brosig et al. on the other hand, only use runtime data to extract the architecture.
+The usage of dynamic data by all approaches is not unexpected.
+Asynchronous communication, message-based communication in particular, often requires the system to be executed for it to show the full communication dependencies between the microservices. % TODO: Citation needed?
+\\
+
+In terms of automation, all approaches except MiSAR are automated \cite{Singh2022ARCHI4MOM,Brosig2011,Mayer2018,Kleehaus2018}.
+Therefore they are suitable to be used in a continuous integration environment, where each new iteration of code can be used to update the extracted architecture.
+This way, there always exists an up-to-date architecture of the current system implementation.
+The approach by Brosig et al. specifically, features a persistent database that stores the architectural model information \cite{Brosig2011} and allows for an iterative extraction of the architecture.
+This means that on each invocation after the first one, the existing architecture model can be used and refined, which means that the architecture does not have to be extracted anew each time.
+
+The MiSAR approach is specifically a manual approach with mapping rules defined in natural language.
+It has to be executed by a human, where some steps can be semi- or fully-automated \cite{Alshuqayran2020Thesis}.
+A big part of the workload is done in phase 1 of the MiSAR approach, which concerns the creation of these mapping rules by iteratively defining and refining them \cite{Alshuqayran2018MiSAR}, although this phase can be significantly shortened, if the user of the approach decides to use the mapping rules extracted and presented by Alshuqayran et al. as a starting point.
+Due to the kind of this manual approach, it seems unfit to be used in a continuous software engineering environment, as at least phase 2, the extraction of the architecture using the mapping rules would have to be executed on each code change, resulting in a lot of manual work.
+\\
+
+While the ARCHI4MOM and MICROLYZE approach both rely on a service discovery service (e.g. Eureka or Consul) to be present retrieve a list of all registered services \cite{Singh2022ARCHI4MOM,Kleehaus2018}, the approach by Brosig et al. retrieves this information via static code analysis or manual input from the software architect \cite{Brosig2011}.
+This makes the Brosig et al. approach more suitable for systems under foreign control, where it may not be possible to install such a service.
+
+From the five presented approaches, the approach by Brosig et al. is the only one that extracts a full performance model (namely, a full Palladio Component Model) including the usage data \cite{Brosig2011}.
+This makes it very suitable for integration in a continuous environment where the generated performance model can then be used to analyze different builds with each other.
+
+
+% ARCHI4MOM does not support mixed-technology architectures
+% MICROLYZE and MW only REST
+% MICROLYZE, MW, ... are continuous/iterative
+% MW provides visualization
+% talk about evaluation techniques
+% How is the output? Who can use it?
+
+% Done:
+% MiSAR is manual, seems like a lot of work, natural language
+% talk about the input they use (static/dynamic/hybrid), does the approach need runtime data/injection of services
+% Brosig only considers effective architecture
+% MICROLYZE requires SDS to work
+% Brosig extracts full PCM incl. usage model

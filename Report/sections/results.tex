@@ -10,6 +10,10 @@ Each approach will be presented using five aspects:
 	\item \textbf{Evaluation} (how were the results evaluated)
 \end{enumerate}
 
+
+%%%%%%%%%%%%%
+% ARCHI4MOM %
+%%%%%%%%%%%%%
 \subsection{ARCHI4MOM}
 \label{sec:Results:ARCHI4MOM}
 \textbf{Input.}
@@ -50,6 +54,10 @@ This manual model was then verified by three developers to be correct and compar
 Using this plan, both sets of model elements (manual and automatic) are then compared using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
 The automatic approach achieved a precision score of 100\%, a recall score of 95.65\% and an F1 score of 97.8\% \cite{Singh2022ARCHI4MOM}. \todo{should I include the results or not?}
 
+
+%%%%%%%%%
+% MiSAR %
+%%%%%%%%%
 \subsection{MiSAR}
 \label{sec:Results:MiSAR}
 \textbf{Input.}
@@ -106,22 +114,26 @@ The system used for evaluation was TrainTicket \cite{Zhou2018TrainTicket}, a ben
 The authors measure the deviations from the documentation, additional elements and missing elements and calculated the Precision, Recall and F1-Score to quantify their approach \cite{Alshuqayran2020Thesis}.
 
 
+%%%%%%%%%%
+% Brosig %
+%%%%%%%%%%
 % TODO: Change to "Approach by Brosig et al."?
 % TODO: Then => remove cites from all headings
 \subsection{--- \cite{Brosig2011}}
 \label{sec:Results:Brosig}
 \textbf{Input.}
-The approach by Brosig et al. uses onlyl monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
+The approach by Brosig et al. uses monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
+For the detection of the component boundaries, either static code analysis on the source code can be used, or the boundaries can be manually defined by a software architect \cite{Brosig2011}.
 \\ \\
 \textbf{Approach.}
 % only considers parts effectively used at runtime
 The approach presented by Brosig et al. only extracts the effective architecture \cite{Israr2007interaction} of the system, meaning that only parts that are effectively used at runtime are considered \cite{Brosig2011}.
-The first step in the extraction of the effective architecture.
+The first step is the extraction of the effective architecture.
 Before the extraction process can begin, component boundaries, which separate components as single entities from the point of view of the system's architect, need to be defined \cite{Brosig2011}.
 This can be either done manually by a software architect or automatically using static code analysis \cite{Brosig2011}.
-After the system boundaries have been determined, the running system is monitored using \textit{call path tracing} \cite{Brosig2011}.
-The resulting \textit{event records} (representing entries or exists of components) are grouped together into \textit{call path event record sets} which contain event records that were triggered by the same system request \cite{Brosig2011}.
-This data can then be used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided interface calls.
+After the system boundaries have been determined, the running system is monitored using \textit{call path tracing} \todo{Explain} \cite{Brosig2011}.
+The resulting \textit{event records} (representing entries or exits of components) are grouped together into \textit{call path event record sets} which contain event records that were triggered by the same system request \cite{Brosig2011}.
+This data can then be used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided-interface calls.
 To extract an accurate representation of the system's components and connections between them, a representative usage profile has to be chosen, as the extraction only captures the actual communication that happens during the extraction approach \cite{Brosig2011}.
 After the components and their connection have been extracted, the component-internal performance-relevant control flow has to be modeled.
 This includes the internal behavior as well as the external service calls, the component makes \cite{Brosig2011}.
@@ -152,6 +164,9 @@ The evaluation of the approach was accomplished by implementing it and applying 
 The application used was the SPECjEnterprise2010 benchmark \footnote{https://www.spec.org/jEnterprise2010/}.
 
 
+%%%%%%%%%%%%%
+% MICROLYZE %
+%%%%%%%%%%%%%
 \subsection{MICROLYZE \cite{Kleehaus2018}}
 \label{sec:Results:Microlyze}
 \textbf{Input.}
@@ -197,6 +212,10 @@ To evaluate the appraoch, the authors developed a prototype and applied it to th
 They developed a service called \textit{Travelcompanion} which is meant to form travel groups to save on travel costs \cite{Kleehaus2018}.
 To discover the relationships between the components, the authors produced traffic using JMeter \footnote{https://jmeter.apache.org} \cite{Kleehaus2018}.
 After step three completed, the authors enhanced the technical transactions with a business semantic and mapped the business activities to user transactions \cite{Kleehaus2018}.
+
+%%%%%%%%%%%%%%%%%%%%
+% Mayer, Weinreich %
+%%%%%%%%%%%%%%%%%%%%
 \subsection{--- \cite{Mayer2018}}
 \label{sec:Results:Mayer}
 \textbf{Input.}
@@ -243,6 +262,10 @@ The authors then built a test scenario consisting of three microservices to test
 
 % TODO: What is a tool/approach/... ? Define in paper
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Answering the Research Questions %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Answering the Research Questions}
 \label{sec:Results:AnsweringRQ}
 
@@ -261,7 +284,9 @@ The ARCHI4MOM approach (\cite{Singh2022ARCHI4MOM}) extracts the repository and p
 It is not able yet to extract a usage model to complete the PCM \cite{Singh2022ARCHI4MOM}.
 Another limitation of ARCHI4MOM is that it is not able to extract the architecture of mixed-technology systems, i.e. systems that use both synchronous and asynchronous communication between their components \cite{Singh2022ARCHI4MOM}.
 
-The MiSAR approach (\cite{Alshuqayran2018MiSAR}) \todo{Extend}
+The MiSAR approach (\cite{Alshuqayran2018MiSAR}) supports synchronous, as well as asynchronous message-based systems \cite{Alshuqayran2020Thesis}.
+Due to the manual nature of the extraction approach, the MiSAR approach is very flexible and as the mapping rules are formulated in natural language \cite{Alshuqayran2020Thesis}, it is possible to intervene and tweak rules that do not recover the correct architecture.
+The approach results in an architectural model that visualizes via a diagram the architecture of the system.
 
 The approach presented by Brosig et al. (\cite{Brosig2011}) presents and end-to-end model extraction that results in a performance model \cite{Brosig2011}.
 Their proof-of-concept implementation showed, that it is possible to extract full Palladio Component Models, including usage models \cite{Brosig2011}.
@@ -277,6 +302,9 @@ The approach of Mayer and Weinreich only supports REST-based communication as we
 Like MICROLYZE, it is meant to be used continuously and also holds model data in a database to be able to persist information between invocations.
 The results are visualized in a web interface.
 
+%%%%%%%%%
+% Table %
+%%%%%%%%%
 \begin{sidewaystable}
 \centering
 % TODO: Update table

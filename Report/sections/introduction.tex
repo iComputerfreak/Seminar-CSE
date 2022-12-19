@@ -12,9 +12,20 @@
 
 \section{Introduction}
 \label{cha:Introduction}
-This chapter will provide a motivation of why a systematic literature review about tools for architecture extraction of asynchronous systems is necessary.
+Asynchronous microservice systems are becoming increasingly popular for building scalable and resilient distributed applications.
+These systems are composed of small, independent services that communicate with each other, e.g. through messages or HTTP-communication.
+The architecture of an asynchronous microservice system plays a crucial role in its design, development, and maintenance.
+It determines how the services are organized, how they interact with each other and with the outside world, and how they can be evolved and adapted over time.
 
-In chapter 2, we will provide some foundation knowledge.
-In chapter 3, we will talk about the design and goal of this literature review and the selection of the papers.
-In chapter 4, we will present the results and compare them using five different aspects.
-We will discuss these results in chapter 5 and talk about related work in chapter 6, before drawing conclusions in chapter 7.
+In the context of continuous software engineering, where software is developed and deployed in a continuous and incremental manner, the architecture of an asynchronous microservice system can be subject to erosion, i.e., the gradual divergence between the intended architecture and the implemented architecture over time \cite{DESILVA2012132}.
+This can happen due to a variety of factors, such as changes in the requirements, the environment, the technology, or the team.
+Therefore, it is important to regularly assess and update the architecture of an asynchronous microservice system to ensure that it remains aligned with the intended architecture.
+
+One way to understand and document the architecture of an asynchronous microservice system is by extracting it from the codebase and other artifacts that describe the system.
+There are several tools available for this purpose, ranging from static analysis tools that extract the architecture from the source code, to visualization tools that generate diagrams and interactive visualizations of the architecture.
+
+In this paper, we will compare five of these tools that are capable of extracting the architecture of asynchronous microservice systems.
+In \autoref{cha:Foundation}, we will provide some foundation knowledge.
+In \autoref{cha:StudyDesign}, we will talk about the design and goal of this literature review and the selection of the papers.
+In \autoref{cha:Results}, we will present the results and compare them using five different aspects.
+We will discuss these results in \autoref{cha:Discussion} and talk about related work in \autoref{cha:RelatedWork}, before drawing conclusions in \autoref{cha:Conclusion}.

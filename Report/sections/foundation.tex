@@ -1,4 +1,4 @@
-In the following sections, we will provide some foundation knowledge for the rest of the paper.
+Our work is based on several foundations, which we will discuss in the sections below.
 
 \subsection{Microservice Architecture}
 \label{sec:Foundation:MicroserviceArchitecture}
@@ -8,9 +8,13 @@ This loose coupling allows for independent teams to work on different components
 Also, scaling the application can be achieved by simply duplicating the bottlenecked microservices \cite{Dragoni2017}.
 A microservice is defined by its provided- and required-interfaces, which allow for the message-exchange with other components \cite{Singh2021}.
 
-
-\subsection{Asynchronous RESTful Communication}
+\subsection{Asynchronous Communication}
 \label{sec:Foundation:AsyncCommunication}
+\todo{Einleitungs-Satz}
+\todo{Bild}
+
+\subsubsection{Asynchronous RESTful Communication}
+\label{sec:Foundation:AsyncCommunication:REST}
 Microservices that communicate asynchronously are typically realized in one of two kinds.
 Either using a RESTful pattern or using message-based communication. \\
 
@@ -24,8 +28,8 @@ Alternatively, the microservice may be required to provide a callback method (e.
 We will refer to both of these communication methods as RESTful asynchronous communication in the following paper.
 
 
-\subsection{Message-based Communication}
-\label{sec:Foundation:MessageBasedCommunication}
+\subsubsection{Message-based Communication}
+\label{sec:Foundation:AsyncCommunication:MBC}
 Contrary to RESTful asynchronous communication, other microservice systems use message-based asynchronous communication.
 These systems use messages or events to facilitate communication between its microservices.
 These messages or events are typically sent using a messaging system (e.g., Java Message Service, JMS \footnote{https://www.oracle.com/technical-resources/articles/java/intro-java-message-service.html}) or a message broker (e.g., Apache Kafka \footnote{https://github.com/berndruecker/Dowing-retail/tree/master/kafka/java} or RabbitMQ \footnote{https://www.rabbitmq.com}).
@@ -33,10 +37,10 @@ These messaging systems or brokers provide a reliable, scalable and decoupled wa
 Using a message broker also allows for better system performance \cite{Singh2021}.
 
 
-\subsection{Software Architecture Extraction (SAR)}
+\subsection{Reverse Engineering}
 \label{sec:Foundation:SAR}
-Software Architecture Extraction (SAR) is the process of reverse engineering a software architecture from a given system.
-Vital for building this architecture is information about the communication between the different components.
+Reverse engineering is a Software Architecture Extraction (SAR) technique that uses the artifacts of the system (e.g., source code, logs) to analyze the system.
+Vital for building the architecture of the software-system is information about the communication between the different components.
 This information is extracted using either a static (using only static inputs, e.g. source code), dynamic (using runtime information, e.g. logs) or hybrid (using both) approach.
 In the context of asynchronous communication, a static extraction algorithm would in the case of a RESTful asynchronous communication, analyze the HTTP calls made in code to determine the relationships between the components.
 In the case of message-based communication, a static approach is unable to extract a useful architecture, since message-based systems exchange those messages only at runtime and thus the required information about which components communicate with each other can only be retrieved as part of a dynamic or hybrid analysis. \cite{Singh2021,Mayer2018}

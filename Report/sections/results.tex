@@ -1,13 +1,29 @@
 \autoref{table:results} shows the results of the comparison in tabular format.
-In the following sections, we will talk about each paper individually.
+In the following sections, we will discuss each paper individually.
 
 Each approach will be presented using five aspects:
 \begin{enumerate}
-	\item \textbf{Input} (e.g. source code or logs)
-	\item \textbf{Approach} (how the extraction process works)
+	\item \textbf{Input} (e.g. source code or logs) \\
+		  The input of an extraction approach are the files or information, the approach requires to work.
+		  This can for example be static information, like the source code of the software-system, Docker configuration files and documentation, or the approach can require dynamic data, like runtime logs, communication tracing information or a list of registered services from a service discovery service.
+	\item \textbf{Approach} (how the extraction process works) \\
+	      An extraction approach can be broadly grouped into one of three categories.
+	      Static approaches only use static data (e.g., source code, configuration files) and do not require the system to be executed to extract the architecture.
+	      Dynamic approaches on the other hand, only use runtime data (e.g., logs, service discovery service responses) to analyze the software-system's architecture.
+	      In between, there are hybrid approaches that use both static and dynamic data to analyze the system. These hybrid approaches could for example detect the registered components statically from the source code and then monitor the runtime communication data to recognize the relationships between the components.
 	\item \textbf{Output} (e.g. PCM or UML)
+	      The output of the approach is whatever is the final result.
+	      For example, an approach could simply output an adjacency matrix, showing which components communicate with which other components.
+	      A more complex output could be an UML diagram, depicting the components and their relationships graphically or even a web interface showing aggregated data about the analyzed system.
+	      Another possible output is a performance model or a database.
 	\item \textbf{End user} (who the result is intended for)
+		  The end user is the type of person that the output of the approach is intended for.
+		  In the case of an UML diagram, a normal software practitioner could use the output to understand the system.
+  		  With a performance model on the other hand, a software architect can predict the software-quality at design time.
 	\item \textbf{Evaluation} (how were the results evaluated)
+		  Lastly, we will look at how the different approaches were evaluated.
+		  Examples for evaluation approaches include Precision/Recall/F1 calculation or the manual comparison of the extracted architecture with the documentation.
+		  We will only focus on the type of evaluation and how it was performed and not on the results of the evaluation.
 \end{enumerate}
 
 
@@ -51,8 +67,7 @@ This model can then be used by software architects together with usage scenarios
 \textbf{Evaluation.}
 To evaluate the approach, the authors created a manual PCM of the Flowing Retail sample application \footnote{https://github.com/berndruecker/flowing-retail/tree/master/kafka/java}.
 This manual model was then verified by three developers to be correct and compared to the automatically extracted model using a Goal Question Metric (GQM) plan \cite{VanSolingen2002GQM,Singh2022ARCHI4MOM}.
-Using this plan, both sets of model elements (manual and automatic) are then compared using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
-The automatic approach achieved a precision score of 100\%, a recall score of 95.65\% and an F1 score of 97.8\% \cite{Singh2022ARCHI4MOM}. \todo{should I include the results or not?}
+Using this plan, the authors then compare both sets of model elements (manual and automatic) using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
 
 
 %%%%%%%%%
@@ -69,7 +84,6 @@ Information about latencies was retrieved using TCPDump \footnote{https://www.tc
 This information is all stored in a repository for further use.
 \\ \\
 \textbf{Approach.}
-% TODO: Is this only the explanation of how MiSAR was developed?
 MiSAR is a manual approach that is executed in two phases \cite{Alshuqayran2018MiSAR}.
 The first phase (Recovery Design, RD) defines architectural concepts, which are extracted in the second phase (Recovery Execution, RE) \cite{Alshuqayran2018MiSAR}.
 
@@ -117,9 +131,7 @@ The authors measure the deviations from the documentation, additional elements a
 %%%%%%%%%%
 % Brosig %
 %%%%%%%%%%
-% TODO: Change to "Approach by Brosig et al."?
-% TODO: Then => remove cites from all headings
-\subsection{--- \cite{Brosig2011}}
+\subsection{Approach by Brosig et al.}
 \label{sec:Results:Brosig}
 \textbf{Input.}
 The approach by Brosig et al. uses monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
@@ -131,7 +143,7 @@ The approach presented by Brosig et al. only extracts the effective architecture
 The first step is the extraction of the effective architecture.
 Before the extraction process can begin, component boundaries, which separate components as single entities from the point of view of the system's architect, need to be defined \cite{Brosig2011}.
 This can be either done manually by a software architect or automatically using static code analysis \cite{Brosig2011}.
-After the system boundaries have been determined, the running system is monitored using \textit{call path tracing} \todo{Explain} \cite{Brosig2011}.
+After the system boundaries have been determined, the running system is monitored and the communication between the components is traced \cite{Brosig2011}.
 The resulting \textit{event records} (representing entries or exits of components) are grouped together into \textit{call path event record sets} which contain event records that were triggered by the same system request \cite{Brosig2011}.
 This data can then be used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided-interface calls.
 To extract an accurate representation of the system's components and connections between them, a representative usage profile has to be chosen, as the extraction only captures the actual communication that happens during the extraction approach \cite{Brosig2011}.
@@ -167,7 +179,7 @@ The application used was the SPECjEnterprise2010 benchmark \footnote{https://www
 %%%%%%%%%%%%%
 % MICROLYZE %
 %%%%%%%%%%%%%
-\subsection{MICROLYZE \cite{Kleehaus2018}}
+\subsection{MICROLYZE}
 \label{sec:Results:Microlyze}
 \textbf{Input.}
 Microlyze uses runtime data from a service discovery service, as well as manual inputs (e.g. semantic descriptions, mappings to technical requests) to reconstruct the software architecture \cite{Kleehaus2018}.
@@ -216,7 +228,7 @@ After step three completed, the authors enhanced the technical transactions with
 %%%%%%%%%%%%%%%%%%%%
 % Mayer, Weinreich %
 %%%%%%%%%%%%%%%%%%%%
-\subsection{--- \cite{Mayer2018}}
+\subsection{Approach by Mayer and Weinreich}
 \label{sec:Results:Mayer}
 \textbf{Input.}
 The approach uses static information, provided by configuration files and static information about services (e.g., name, version, etc.) \cite{Mayer2018}.
@@ -260,8 +272,6 @@ The end users of the output of this approach are architects, developers, and ope
 The authors conducted a combined survey and interview study (\cite{Mayer2017dashboard}) and used the feedback to construct a microservice dashboard that supports the different use cases identified by the survey \cite{Mayer2018}.
 The authors then built a test scenario consisting of three microservices to test the long-term data collection capabilities of their approach \cite{Mayer2018}.
 
-% TODO: What is a tool/approach/... ? Define in paper
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Answering the Research Questions %
@@ -273,7 +283,7 @@ The authors then built a test scenario consisting of three microservices to test
 \textbf{What are the tools available for the extraction of asynchronous architectures of microservice systems?}
 \\ \\
 In the previous sections, we presented five approaches that are able to extract the architecture of microservice systems.
-Each of these systems is able to handle asynchronous REST communication and in the case of \cite{Singh2022ARCHI4MOM,Alshuqayran2018MiSAR,Brosig2011}, the approaches also support the extraction of message-based asynchronous communication architectures as described in \autoref{sec:Foundation:MessageBasedCommunication}.
+Each of these systems is able to handle asynchronous REST communication and in the case of \cite{Singh2022ARCHI4MOM,Alshuqayran2018MiSAR,Brosig2011}, the approaches also support the extraction of message-based asynchronous communication architectures as described in \autoref{sec:Foundation:AsyncCommunication:MBC}.
 
 \subsubsection{Research Question 2}
 \textbf{To what extend do the tools support software architecture extraction?}
@@ -290,7 +300,6 @@ The approach results in an architectural model that visualizes via a diagram the
 
 The approach presented by Brosig et al. (\cite{Brosig2011}) presents and end-to-end model extraction that results in a performance model \cite{Brosig2011}.
 Their proof-of-concept implementation showed, that it is possible to extract full Palladio Component Models, including usage models \cite{Brosig2011}.
-% TODO: Problem, because unused components will not be part of architecture model and therefore cannot be identified as unused
 The approach only considers runtime data, which means parts of the system architecture which are not active during extraction will not be represented.
 
 The MICROLYZE approach is meant to be used continuously, which means it will be invoked on every change to the code or architecture, thus resulting in an up-to-date performance model of the system.
@@ -308,6 +317,8 @@ The results are visualized in a web interface.
 \begin{sidewaystable}
 \centering
 % TODO: Update table
+% TODO: Linien durchgezogen machen
+% TODO: Unter Namen schreiben, ob HTTP oder Message-based
 \resizebox{\textwidth}{!}{
 %                 Name       Input    Approach Output   User     Eval     Year     Type
 \begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{1.5cm} | p{4cm} | p{1cm} | p{1.2cm} |}
@@ -364,3 +375,10 @@ MICROLYZE (\cite{Kleehaus2018})
 \caption{Results} % TODO: Explanation text
 \label{table:results}
 \end{sidewaystable}
+
+
+\subsection{Limitations}
+\label{sec:Results:Limitations}
+\todo{Talk about limitations of the approaches}
+
+\todo{Talk about recommendations}

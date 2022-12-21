@@ -5,7 +5,7 @@ Additionally, the approaches can be grouped by the type of input they require.
 MiSAR and the approach presented by Mayer and Weinreich both require static data (e.g. source code) as well as dynamic/runtime data (e.g. tracing data, logs) \cite{Alshuqayran2018MiSAR,Mayer2018}.
 ARCHI4MOM, MICROLYZE and the approach presented by Brosig et al. on the other hand, only use runtime data to extract the architecture.
 The usage of dynamic data by all approaches is not unexpected.
-Asynchronous communication, message-based communication in particular, often requires the system to be executed for it to show the full communication dependencies between the microservices. % TODO: Citation needed?
+Asynchronous communication, message-based communication in particular, often requires the system to be executed for it to show the full communication dependencies between the microservices. \todo{Citation needed?}
 \\
 
 In terms of automation, all approaches except MiSAR are automated \cite{Singh2022ARCHI4MOM,Brosig2011,Mayer2018,Kleehaus2018}.
@@ -24,15 +24,29 @@ While the ARCHI4MOM and MICROLYZE approach both rely on a service discovery serv
 This makes the Brosig et al. approach more suitable for systems under foreign control, where it may not be possible to install such a service.
 
 From the five presented approaches, the approach by Brosig et al. is the only one that extracts a full performance model (namely, a full Palladio Component Model) including the usage data \cite{Brosig2011}.
-This makes it very suitable for integration in a continuous environment where the generated performance model can then be used to analyze different builds with each other.
+This makes it very suitable for integration in a continuous environment where the generated performance model can then be used to analyze different builds and compare them with each other.
+\\
+
+In terms of output, the approach by Mayer and Weinreich uses a dashboard that visualizes aggregated information about the system \cite{Mayer2018}.
+This allows even normal software practitioners to view and understand the data, the approach gathers and analyze potential problems.
+For example frequent communications between two modules could indicate tight coupling.
+MICROLYZE on the other hand, also presents its generated adjacency matrix in a web application, but only displays information about which components communicate with each other.
+The adjacency matrix does not give any information about the response times or the amount of communication between the components.
+For this reason, it could be hard for a normal software practitioner to analyze the system and identify potential problems using this matrix.
+
+
+
+
+
+
+
+A downside to ARCHI4MOM is that it does not support software-systems in which both synchronous and asynchronous communication is used \cite{Singh2022ARCHI4MOM}.
+
 
 
 % ARCHI4MOM does not support mixed-technology architectures
-% MICROLYZE and MW only REST
 % MICROLYZE, MW, ... are continuous/iterative
-% MW provides visualization
 % talk about evaluation techniques
-% How is the output? Who can use it?
 
 % Done:
 % MiSAR is manual, seems like a lot of work, natural language
@@ -40,3 +54,6 @@ This makes it very suitable for integration in a continuous environment where th
 % Brosig only considers effective architecture
 % MICROLYZE requires SDS to work
 % Brosig extracts full PCM incl. usage model
+% MICROLYZE and MW only REST
+% MW provides visualization
+% How is the output? Who can use it?

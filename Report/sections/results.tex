@@ -321,55 +321,55 @@ The results are visualized in a web interface.
 % TODO: Unter Namen schreiben, ob HTTP oder Message-based
 \resizebox{\textwidth}{!}{
 %                 Name       Input    Approach Output   User     Eval     Year     Type
-\begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{1.5cm} | p{4cm} | p{1cm} | p{1.2cm} |}
-\toprule
+\begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{1.8cm} | p{4cm} | p{1cm} | p{3cm} |}
+\hline
 \textbf{Name} & \textbf{Input} & \textbf{Approach} & \textbf{Output} & \textbf{End User} & \textbf{Evaluation} & \textbf{Year} & \textbf{Type} \\
-\midrule
+\hline
 ARCHI4MOM (\cite{Singh2022ARCHI4MOM})
-& source code
+& Tracing data produced by jaeger
 & Extend PMX to support asynchronous architectures
-& PCM
-& software architect
+& PCM (repository and part of system model)
+& Software architect
 & Comparison with manual architecture
 & 2022
-& tool \\
-\midrule
+& Approach and Implementation (HTTP or message-based) \\
+\hline
 MiSAR (\cite{Alshuqayran2018MiSAR})
-& source code, descriptive files, runtime traces
-& manual extraction approach \todo{extend}
-& 
-& 
-& 
+& Source code, descriptive files, runtime traces
+& Create and apply mapping rules manually
+& Instance diagram
+& Software architect
+& Comparison with existing documentation
 & 2018
-& manual approach \\
-\midrule
---- (\cite{Brosig2011})
-& run-time monitoring data
-& combine an existing call path tracing and resource demand estimation to an end-to-end model extraction
-& PCM
-& 
-& SPECjEnterprise2010 benchmark application; comparison of prediction with measurements
+& Manual approach (HTTP or message-based) \\
+\hline
+Approach by Brosig (\cite{Brosig2011})
+& Runtime monitoring data
+& Combine call path tracing and resource demand estimation
+& Full PCM
+& Software architect
+& Comparison with SPECjEnterprise2010 benchmark application
 & 2011
-& tool \\
-\midrule
+& Automated approach (HTTP or message-based) \\
+\hline
 MICROLYZE (\cite{Kleehaus2018}) 
-& monitoring data
-& continuously monitor for system changes using a service discovery service; trace HTTP requests using zipkin
-& database with services and their relations; web application to visualize as adjacency matrix
-& system administrators and enterprise or software architects
-& approach was applied to TUM LLCM platform, Travelcompanion service; traffic was generated and result was manually checked
+& Manual inputs and Monitoring Data
+& Trace HTTP requests, store in DB, map transactions and monitor system for changes
+& Adjacency matrix
+& System administrators and enterprise or software architects
+& Manual Comparison with TUM LLCM
 & 2018
-& tool \\
-\midrule
---- (\cite{Mayer2018}) 
-& static service information, infrastructure information and runtime logs
-& condense static and dynamic information into single dimension to analyze the evolution over time; visualize information in dashboard
-& aggregated data, visualized in dashboard
-& 
-& use tool in testing environment; check viability of results
+& Approach (only HTTP) \\
+\hline
+Approach by Mayer and Weinreich (\cite{Mayer2018}) 
+& Static, infrastructure and runtime information
+& Condense static and dynamic information into single dimension
+& Aggregated data, visualized in dashboard
+& Anyone
+& Check viability of test results
 & 2018
-& tool \\
-\bottomrule
+& Approach (only HTTP) \\
+\hline
 \end{tabular}
 }
 \caption{Results} % TODO: Explanation text
@@ -380,5 +380,5 @@ MICROLYZE (\cite{Kleehaus2018})
 \subsection{Limitations}
 \label{sec:Results:Limitations}
 \todo{Talk about limitations of the approaches}
-
+\\ 
 \todo{Talk about recommendations}

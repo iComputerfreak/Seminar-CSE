@@ -167,3 +167,5 @@
 }
 
 \usepackage{rotating}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,fit,calc,decorations.markings}

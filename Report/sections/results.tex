@@ -290,26 +290,38 @@ Each of these systems is able to handle asynchronous REST communication and in t
 \\ \\
 The extend to which the approaches support the extraction of asynchronous architecture differs.
 
-The ARCHI4MOM approach (\cite{Singh2022ARCHI4MOM}) extracts the repository and part of the system model of the Palladio Component Model \cite{Singh2022ARCHI4MOM}.
-It is not able yet to extract a usage model to complete the PCM \cite{Singh2022ARCHI4MOM}.
-Another limitation of ARCHI4MOM is that it is not able to extract the architecture of mixed-technology systems, i.e. systems that use both synchronous and asynchronous communication between their components \cite{Singh2022ARCHI4MOM}.
+ARCHI4MOM \cite{Singh2022ARCHI4MOM}, MiSAR \cite{Alshuqayran2018MiSAR} and the approach presented by Brosig \cite{Brosig2011} all support the extraction of architectures using message-based asynchronous communication.
 
-The MiSAR approach (\cite{Alshuqayran2018MiSAR}) supports synchronous, as well as asynchronous message-based systems \cite{Alshuqayran2020Thesis}.
 Due to the manual nature of the extraction approach, the MiSAR approach is very flexible and as the mapping rules are formulated in natural language \cite{Alshuqayran2020Thesis}, it is possible to intervene and tweak rules that do not recover the correct architecture.
 The approach results in an architectural model that visualizes via a diagram the architecture of the system.
 
-The approach presented by Brosig et al. (\cite{Brosig2011}) presents and end-to-end model extraction that results in a performance model \cite{Brosig2011}.
+The approach presented by Brosig et al. presents and end-to-end model extraction that results in a performance model \cite{Brosig2011}.
 Their proof-of-concept implementation showed, that it is possible to extract full Palladio Component Models, including usage models \cite{Brosig2011}.
-The approach only considers runtime data, which means parts of the system architecture which are not active during extraction will not be represented.
 
 The MICROLYZE approach is meant to be used continuously, which means it will be invoked on every change to the code or architecture, thus resulting in an up-to-date performance model of the system.
 Due to the fact that MICROLYZE keeps the architecture model data in a database, the architecture does not have to be extracted anew each time, a part of the system changes.
-A limitation of MICROLYZE is that it requires a service discovery service (like Eureka or Consul) to fully work.
-Additionally, MICROLYZE only supports REST-based communication and is not able to extract the architecture of microservice systems that use message-based communication \cite{Kleehaus2018}.
 
-The approach of Mayer and Weinreich only supports REST-based communication as well.
-Like MICROLYZE, it is meant to be used continuously and also holds model data in a database to be able to persist information between invocations.
-The results are visualized in a web interface.
+The approach of Mayer and Weinreich is also meant to be used continuously and also holds model data in a database to be able to persist information between invocations.
+The results are visualized in a web interface that aggregates the data and displays it in a way for anyone to understand it.
+\\
+
+\textbf{Limitations.}
+ARCHI4MOM is limited in the types of asynchronous microservice software systems it can process.
+ARCHI4MOM does not support mixed-technology systems where both synchronous as well as asynchronous communication is used \cite{Singh2022ARCHI4MOM}.
+Additionally, ARCHI4MOM only extracts the repository and part of the system model of the PCM.
+
+The MiSAR approach is a manual approach and therefore not suited to be used in an continuous and automated environment.
+It has to be executed by a human, since the mapping rules are formulated in natural language. \cite{Alshuqayran2018MiSAR}
+
+The approach presented by Brosig et al. only considers the effective architecture of the system.
+Parts of the system that are not used during runtime are not represented in the resulting Palladio Component Model. \cite{Brosig2011}
+
+A limitation of the MICROLYZE approach is that is requires a service discovery service to be present to fully work \cite{Kleehaus2018}.
+Another drawback is that MICROLYZE is only able to extract the architecture of software systems using asynchronous HTTP REST communication.
+It does not support message-based communication.
+
+The approach by Mayer and Weinreich also only supports HTTP REST communication.
+
 
 %%%%%%%%%
 % Table %
@@ -372,25 +384,3 @@ Approach by Mayer and Weinreich (\cite{Mayer2018})
 \caption{Results}
 \label{table:results}
 \end{sidewaystable}
-
-
-\subsection{Limitations}
-\label{sec:Results:Limitations}
-\todo{Hier wiederholt sich viel aus \autoref{sec:Results:AnsweringRQ}}. \\
-ARCHI4MOM is limited in the types of asynchronous microservice software systems it can process.
-ARCHI4MOM does not support mixed-technology systems where both synchronous as well as asynchronous communication is used \cite{Singh2022ARCHI4MOM}.
-Additionally, ARCHI4MOM only extracts the repository and part of the system model of the PCM.
-
-The MiSAR approach is a manual approach and therefore not suited to be used in an continuous and automated environment.
-It has to be executed by a human, since the mapping rules are formulated in natural language. \cite{Alshuqayran2018MiSAR}
-
-The approach presented by Brosig et al. only considers the effective architecture of the system.
-Parts of the system that are not used during runtime are not represented in the resulting Palladio Component Model. \cite{Brosig2011}
-
-A limitation of the MICROLYZE approach is that is requires a service discovery service to be present to fully work \cite{Kleehaus2018}.
-Another drawback is that MICROLYZE is only able to extract the architecture of software systems using asynchronous HTTP REST communication.
-It does not support message-based communication.
-
-The approach by Mayer and Weinreich also only supports HTTP REST communication.
-\\ 
-\todo{Talk about recommendations}

@@ -10,37 +10,36 @@ A microservice is defined by its provided- and required-interfaces, which allow 
 
 \subsection{Asynchronous Communication}
 \label{sec:Foundation:AsyncCommunication}
-\todo{Einleitungs-Satz}
-\todo{Bild}
-
+In the context of microservice software systems, there are two commonly used methods of communicating asynchronously.
 
 \subsubsection{Asynchronous RESTful Communication}
 \label{sec:Foundation:AsyncCommunication:REST}
-%\begin{figure}
-%\centering
-%\begin{tikzpicture}[node distance=2.5cm,auto,>=latex']
-%  % Define nodes
-%  \node (client) [rectangle,draw] {Client};
-%  \node (microservice1) [rectangle,draw,right of=client] {Microservice 1};
-%  \node (microservice2) [rectangle,draw,right of=microservice1] {Microservice 2};
-%  \node (202response) [rectangle,draw,below of=microservice1,yshift=-1cm] {202 Response};
-%  \node (failedresponse) [rectangle,draw,below of=microservice2,yshift=-1cm] {Failed Response};
-%  \node (successfulresponse) [rectangle,draw,below of=microservice2,yshift=-1cm] {Successful Response};
-%  \node (fitbox) [draw,dashed,fit=(202response) (failedresponse) (successfulresponse)] {};
-%  
-%  % Draw edges
-%  \path[->] (client) edge node[above] {initial request} (microservice1);
-%  \path[->] (microservice1) edge (202response);
-%  \path[->] (client) edge[bend left] node[above] {attempt to get results} (microservice2);
-%  \path[->] (microservice2) edge (failedresponse);
-%  \path[->] (client) edge[bend left] node[above] {attempt to get results} (microservice2);
-%  \path[->] (microservice2) edge (successfulresponse);
-%  \path[->] (successfulresponse) edge[out=225,in=135] (client);
-%%  \draw[->,decorate,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.5]{>}}},postaction={decorate}] (fitbox.north west) -- (client.west);
-%\end{tikzpicture}
-%\caption{Asynchronous Communication using HTTP REST}
-%\label{fig:ImageAsyncHTTP}
-%\end{figure}
+\begin{figure}
+\centering
+  \begin{tikzpicture}[node distance=4cm,auto,>=stealth']
+    \node[] (server) {MS 2};
+    \node[left = of server] (client) {MS 1};
+    \node[below of=server, node distance=6cm] (server_ground) {};
+    \node[below of=client, node distance=6cm] (client_ground) {};
+    %
+    \draw (client) -- (client_ground);
+    \draw (server) -- (server_ground);
+    
+    \draw[->] ($(client)!0.15!(client_ground)$) -- node[above,scale=1,midway]{HTTP POST Request} ($(server)!0.15!(server_ground)$);
+    \draw[<-] ($(client)!0.2!(client_ground)$) -- node[below,scale=1,midway]{HTTP 202 (Accepted)} ($(server)!0.2!(server_ground)$);
+    
+    
+    \draw[->] ($(client)!0.5!(client_ground)$) -- node[above,scale=1,midway]{HTTP GET /results} ($(server)!0.5!(server_ground)$);
+    \draw[<-] ($(client)!0.55!(client_ground)$) -- node[below,scale=1,midway]{HTTP 200 (OK) with status} ($(server)!0.55!(server_ground)$);
+    
+    
+    \draw[->] ($(client)!0.85!(client_ground)$) -- node[above,scale=1,midway]{HTTP GET /results} ($(server)!0.85!(server_ground)$);
+    \draw[<-] ($(client)!0.9!(client_ground)$) -- node[below,scale=1,midway]{HTTP 303 (See Other)} ($(server)!0.9!(server_ground)$);
+\end{tikzpicture}
+\caption{\textbf{Asynchronous Communication using HTTP REST.} \\
+MS 1 send an HTTP POST request, including the payload to MS 2. MS 2 stores the payload and starts processing. It immediately returns an HTTP Code 202 (Accepted), including a location where MS 1 can query the results (e.g. /results). Periodically, MS 1 queries the results using an HTTP GET request at the given location. If the results are not ready yet, MS 2 returns an HTTP Code 200 (OK) with the current status of the operation, otherwise it returns an HTTP Code 303 (See Other) with the location of the results.}
+\label{fig:ImageAsyncHTTP}
+\end{figure}
 
 Microservices that communicate asynchronously are typically realized in one of two kinds.
 Either using a RESTful pattern or using message-based communication. \\
@@ -48,7 +47,9 @@ Either using a RESTful pattern or using message-based communication. \\
 Some systems use microservices that communicate asynchronously via asynchronous HTTP REST interfaces.
 There are two interaction scenarios for this kind of asynchronous communication.
 One possibility is that the initial HTTP request returns an HTTP code 202 (Accepted) and provides a location where the microservice can query the status of the operation.
-Once the operation on the server has finished, the provided location will return the results of the query. \cite{Mayer2018}
+When the sender queries the provided location before the operation has finished, the receiver returns the current status and information about the running operation.
+Once the operation on the server has finished, the provided location will return an HTTP Code 303 (See Other) to redirect the sender to the results. \cite{Mayer2018}
+This interaction is depicted in \autoref{fig:ImageAsyncHTTP}.
 
 Alternatively, the microservice may be required to provide a callback method (e.g. a web hook, \cite{Webhooks}) where the server can send the results once the operation has finished \cite{Mayer2018}. \\
 
@@ -72,14 +73,17 @@ We will refer to both of these communication methods as RESTful asynchronous com
   \draw [->] (microservice2) -- node[pos=.5, above, sloped] (TextNode) {consume message} (messagebroker);
   \draw [->] (microservice3) -- node[pos=.5, above, sloped] (TextNode) {consume message} (messagebroker);
 \end{tikzpicture}
-\caption{Asynchronous Communication using a message broker}
+\caption{\textbf{Asynchronous Communication using a message broker.} \\
+Microservice 1 sends messages to the message broker. Microservice 2 and 3 consume these messages by contacting the message broker.}
 \label{fig:ImageAsyncMBC}
 \end{figure}
 
 Contrary to RESTful asynchronous communication, other microservice systems use message-based asynchronous communication.
 These systems use messages or events to facilitate communication between its microservices.
 These messages or events are typically sent using a messaging system (e.g., Java Message Service, JMS \footnote{https://www.oracle.com/technical-resources/articles/java/intro-java-message-service.html}) or a message broker (e.g., Apache Kafka \footnote{https://github.com/berndruecker/Dowing-retail/tree/master/kafka/java} or RabbitMQ \footnote{https://www.rabbitmq.com}).
-These messaging systems or brokers provide a reliable, scalable and decoupled way for the microservices to communicate with each other.
+After the microservice has sent the message to the message broker, other microservices can consume the messages in the broker.
+This communication pattern is depicted in \autoref{fig:ImageAsyncMBC}.
+The messaging systems or brokers provide a reliable, scalable and decoupled way for the microservices to communicate with each other.
 Using a message broker also allows for better system performance \cite{Singh2021}.
 
 

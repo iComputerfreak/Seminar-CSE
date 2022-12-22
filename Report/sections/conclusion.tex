@@ -10,6 +10,19 @@
 
 \section{Conclusion}
 \label{cha:Conclusion}
-In this chapter, we will recap the findings that we made and finish the paper with concluding remarks.
+In this paper, we compared five approaches that each are capable of extracting the architecture of an asynchronous microservice software system.
+We laid out some foundations and our selection of approaches and then proceeded with the results.
+We compared the five approaches in regards to their input, the technique they used, their output, the end user they were designed for and the type of evaluation the authors used.
 
-% We will also talk about the fact that \cite{Granchelli2017MicroART} and \cite{Langhammer2016} could be extended to support asynchronous communication in the future.
+We showed that in terms of flexibility, MiSAR \cite{Alshuqayran2018MiSAR} takes the lead, being the most flexible approach with the drawback of being a manual approach.
+In terms of output, the approach by Brosig \cite{Brosig2011} extracts a full Palladio Component Model, including the usage data, allowing software architects to perform software quality predictions.
+Mayer and Weinreich's approach \cite{Mayer2018} on the other hand displays the extracted and aggregated data nicely in a dashboard so a normal software practitioner can use it.
+
+Two other approaches that were not discussed in this paper are MicroART \cite{Granchelli2017MicroART} and the approach by Langhammer et al. \cite{Langhammer2016}.
+These approaches were not included in the comparison, because they did not match the inclusion criteria in \autoref{table:InclusionExclusion}, being unable to extract the architecture of asynchronous systems.
+Future work could focus on making these two approaches compatible with asynchronous systems.
+
+Additionally, future work could focus on improving the approaches presented here.
+ARCHI4MOM could be extended to support mixed-technology systems (i.e. systems that include both synchronous as well as asynchronous communication).
+
+In general, there exists very little work outside of the presented approaches about the extraction of the architecture of asynchronous microservice software systems, especially for systems using message-based communication.

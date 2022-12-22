@@ -35,7 +35,7 @@ Each approach will be presented using five aspects:
 \textbf{Input.}
 The ARCHI4MOM approach extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} and therefore takes the same inputs.
 The first step in the ARCHI4MOM approach is to instrument the source code with the Jaeger tracing tool \footnote{https://www.jaegertracing.io/} to collect tracing data.
-Using the OpenTracing API, ARCHI4MOM then instruments all microservices to generate trace data, which can be used later to reconstruct the asynchronous communication between the microservices. \cite{Singh2022ARCHI4MOM} % TODO: Also supports MOM
+Using the OpenTracing API, ARCHI4MOM then instruments all microservices to generate trace data, which can be used later to reconstruct the asynchronous communication between the microservices. \cite{Singh2022ARCHI4MOM}
 \\ \\
 \textbf{Approach.}
 ARCHI4MOM extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} to support asynchronous communication.
@@ -185,12 +185,11 @@ The application used was the SPECjEnterprise2010 benchmark \footnote{https://www
 Microlyze uses runtime data from a service discovery service, as well as manual inputs (e.g. semantic descriptions, mappings to technical requests) to reconstruct the software architecture \cite{Kleehaus2018}.
 \\ \\
 \textbf{Approach.}
-% TODO: Business Process Modeller and Activity Mapper are controlled/fed by the user via a web interface
 The Microlyze recovery approach is executed in six phases, which are meant to be executed continuously \cite{Kleehaus2018}.
 The first phase rebuilds the current system architecture by checking a service discovery service (e.g., Eureka \footnote{https://github.com/Netflix/eureka} or Consul \footnote{https://www.consul.io}) and updating the status of the services in the current architecture \cite{Kleehaus2018}.
 
 The second phase uses the IP addresses and ports retrieved from the service discovery service to establish a link between the services and the hardware used \cite{Kleehaus2018}.
-Together with the IP addresses and ports, a monitoring agent has to be installed on each hardware component to retrieve additional information about the hardware \cite{Kleehaus2018}.
+Together with the IP addresses and ports, a monitoring agent is installed on each hardware component to retrieve additional information about the hardware \cite{Kleehaus2018}.
 Additionally, a monitoring probe is installed on each microservice to observe the HTTP communication \cite{Kleehaus2018}.
 The probe injects tracing data in the HTTP headers and therefore helps to gather timing data \cite{Kleehaus2018}.
 The approach then collects additional infrastructure and software-specific data (e.g., endpoint name, class, method, HTTP request) and attaches this information as annotations \cite{Kleehaus2018}.
@@ -201,6 +200,7 @@ For example, if the first accessed microservice is identical in most requests, i
 
 In the third phase, all user transactions are stored in a database, including what the user does and in which order \cite{Kleehaus2018}.
 These user transactions are then mapped to business transactions using a business process modeller \cite{Kleehaus2018}.
+This mapping is done by the user via a web interface \cite{Kleehaus2018}.
 The information about the user transactions is used to create an association between the business transactions and the microservices that process these transactions \cite{Kleehaus2018}.
 
 The fourth phase is responsible for defining semantic descriptions to each business activity, that can be performed by a user (e.g. \textit{register}, \textit{open shopping cart}, etc.) \cite{Kleehaus2018}.
@@ -220,7 +220,7 @@ The results of the architecture extraction are displayed to the user as an adjac
 The end users of the approach are administrators and enterprise or software architects \cite{Kleehaus2018}.
 \\ \\
 \textbf{Evaluation.}
-To evaluate the appraoch, the authors developed a prototype and applied it to the TUM LLCM platform \footnote{https://www.cs.cit.tum.de/bpm/krcmar/research/finished-projects/tum-llcm-tum-living-lab-connected-mobility/} \cite{Kleehaus2018}.
+To evaluate the approach, the authors developed a prototype and applied it to the TUM LLCM platform \footnote{https://www.cs.cit.tum.de/bpm/krcmar/research/finished-projects/tum-llcm-tum-living-lab-connected-mobility/} \cite{Kleehaus2018}.
 They developed a service called \textit{Travelcompanion} which is meant to form travel groups to save on travel costs \cite{Kleehaus2018}.
 To discover the relationships between the components, the authors produced traffic using JMeter \footnote{https://jmeter.apache.org} \cite{Kleehaus2018}.
 After step three completed, the authors enhanced the technical transactions with a business semantic and mapped the business activities to user transactions \cite{Kleehaus2018}.
@@ -316,9 +316,6 @@ The results are visualized in a web interface.
 %%%%%%%%%
 \begin{sidewaystable}
 \centering
-% TODO: Update table
-% TODO: Linien durchgezogen machen
-% TODO: Unter Namen schreiben, ob HTTP oder Message-based
 \resizebox{\textwidth}{!}{
 %                 Name       Input    Approach Output   User     Eval     Year     Type
 \begin{tabular}{| p{2.5cm} | p{2cm} | p{4cm} | p{2cm} | p{1.8cm} | p{4cm} | p{1cm} | p{3cm} |}
@@ -372,7 +369,7 @@ Approach by Mayer and Weinreich (\cite{Mayer2018})
 \hline
 \end{tabular}
 }
-\caption{Results} % TODO: Explanation text
+\caption{Results}
 \label{table:results}
 \end{sidewaystable}
 

@@ -8,7 +8,7 @@ The usage of dynamic data by all approaches is not unexpected.
 Asynchronous communication, message-based communication in particular, often requires the system to be executed for it to show the full communication dependencies between the microservices. \todo{Citation needed?}
 \\
 
-In terms of automation, all approaches except MiSAR are automated \cite{Singh2022ARCHI4MOM,Brosig2011,Mayer2018,Kleehaus2018}.
+In terms of automation, all approaches except MiSAR are automated \cite{Alshuqayran2018MiSAR,Singh2022ARCHI4MOM,Brosig2011,Mayer2018,Kleehaus2018}.
 Therefore they are suitable to be used in a continuous integration environment, where each new iteration of code can be used to update the extracted architecture.
 This way, there always exists an up-to-date architecture of the current system implementation.
 The approach by Brosig et al. specifically, features a persistent database that stores the architectural model information \cite{Brosig2011} and allows for an iterative extraction of the architecture.
@@ -16,11 +16,11 @@ This means that on each invocation after the first one, the existing architectur
 
 The MiSAR approach is specifically a manual approach with mapping rules defined in natural language.
 It has to be executed by a human, where some steps can be semi- or fully-automated \cite{Alshuqayran2020Thesis}.
-A big part of the workload is done in phase 1 of the MiSAR approach, which concerns the creation of these mapping rules by iteratively defining and refining them \cite{Alshuqayran2018MiSAR}, although this phase can be significantly shortened, if the user of the approach decides to use the mapping rules extracted and presented by Alshuqayran et al. as a starting point.
+A big part of the workload is done in phase 1 of the MiSAR approach, which concerns the creation of mapping rules by iteratively defining and refining them \cite{Alshuqayran2018MiSAR}, although this phase can be significantly shortened, if the user of the approach decides to use the mapping rules extracted and presented by Alshuqayran et al. as a starting point.
 Due to the kind of this manual approach, it seems unfit to be used in a continuous software engineering environment, as at least phase 2, the extraction of the architecture using the mapping rules would have to be executed on each code change, resulting in a lot of manual work.
 \\
 
-While the ARCHI4MOM and MICROLYZE approach both rely on a service discovery service (e.g. Eureka or Consul) to be present retrieve a list of all registered services \cite{Singh2022ARCHI4MOM,Kleehaus2018}, the approach by Brosig et al. retrieves this information via static code analysis or manual input from the software architect \cite{Brosig2011}.
+While the ARCHI4MOM and MICROLYZE approach both rely on a service discovery service (e.g. Eureka or Consul) to be present to retrieve a list of all registered services \cite{Singh2022ARCHI4MOM,Kleehaus2018}, the approach by Brosig et al. retrieves this information via static code analysis or manual input from the software architect \cite{Brosig2011}.
 This makes the Brosig et al. approach more suitable for systems under foreign control, where it may not be possible to install such a service.
 
 From the five presented approaches, the approach by Brosig et al. is the only one that extracts a full performance model (namely, a full Palladio Component Model) including the usage data \cite{Brosig2011}.

@@ -11,6 +11,7 @@ A microservice is defined by its provided- and required-interfaces, which allow 
 \subsection{Asynchronous Communication}
 \label{sec:Foundation:AsyncCommunication}
 In the context of microservice software systems, there are two commonly used methods of communicating asynchronously.
+They either use a RESTful pattern or use message-based communication.
 
 \subsubsection{Asynchronous RESTful Communication}
 \label{sec:Foundation:AsyncCommunication:REST}
@@ -40,9 +41,6 @@ In the context of microservice software systems, there are two commonly used met
 MS 1 send an HTTP POST request, including the payload to MS 2. MS 2 stores the payload and starts processing. It immediately returns an HTTP Code 202 (Accepted), including a location where MS 1 can query the results (e.g. /results). Periodically, MS 1 queries the results using an HTTP GET request at the given location. If the results are not ready yet, MS 2 returns an HTTP Code 200 (OK) with the current status of the operation, otherwise it returns an HTTP Code 303 (See Other) with the location of the results.}
 \label{fig:ImageAsyncHTTP}
 \end{figure}
-
-Microservices that communicate asynchronously are typically realized in one of two kinds.
-Either using a RESTful pattern or using message-based communication. \\
 
 Some systems use microservices that communicate asynchronously via asynchronous HTTP REST interfaces.
 There are two interaction scenarios for this kind of asynchronous communication.

@@ -2,11 +2,11 @@ Our work is based on several foundations, which we will discuss in the sections 
 
 \subsection{Microservice Architecture}
 \label{sec:Foundation:MicroserviceArchitecture}
-In a microservice architecture, the software is partitioned into many small components (``microservices''), which operate independently of each other and communicate via messages \cite{Dragoni2017}.
+In a microservice architecture, the software consists of many small components (``microservices''), which operate independently of each other and communicate via messages \cite{Dragoni2017}.
 This software architecture style allows the construction of highly reusable components which focus on a single task (e.g. applying a watermark to a video).
 This loose coupling allows for independent teams to work on different components or even the use of off-the-shelf components.
 Also, scaling the application can be achieved by simply duplicating the bottlenecked microservices \cite{Dragoni2017}.
-A microservice is defined by its provided- and required-interfaces, which allow for the message-exchange with other components \cite{Singh2021}.
+Microservices use their provided- and required-interfaces to allow for the message-exchange with other components \cite{Singh2021}.
 
 \subsection{Asynchronous Communication}
 \label{sec:Foundation:AsyncCommunication}
@@ -51,7 +51,7 @@ This interaction is depicted in \autoref{fig:ImageAsyncHTTP}.
 
 Alternatively, the microservice may be required to provide a callback method (e.g. a web hook, \cite{Webhooks}) where the server can send the results once the operation has finished \cite{Mayer2018}. \\
 
-We will refer to both of these communication methods as RESTful asynchronous communication in the following paper.
+We refer to both of these communication methods as RESTful asynchronous communication in our paper.
 
 
 \subsubsection{Message-based Communication}
@@ -63,20 +63,18 @@ We will refer to both of these communication methods as RESTful asynchronous com
   % Define nodes
   \node (microservice1) [rectangle,draw] {Microservice 1};
   \node (microservice2) [rectangle,draw,below of=microservice1] {Microservice 2};
-  \node (messagebroker) [rectangle,draw,right of=microservice2,xshift=4cm] {Message Broker};
-  \node (microservice3) [rectangle,draw,below of=microservice2] {Microservice 3};
+  \node (messagebroker) [rectangle,draw,right of=microservice1,xshift=4cm] {Message Broker};
 
   % Draw edges
   \draw [->] (microservice1) -- node[pos=.5, above, sloped] (TextNode) {send message} (messagebroker);
   \draw [->] (microservice2) -- node[pos=.5, above, sloped] (TextNode) {consume message} (messagebroker);
-  \draw [->] (microservice3) -- node[pos=.5, above, sloped] (TextNode) {consume message} (messagebroker);
 \end{tikzpicture}
 \caption{\textbf{Asynchronous Communication using a message broker.} \\
 Microservice 1 sends messages to the message broker. Microservice 2 and 3 consume these messages by contacting the message broker.}
 \label{fig:ImageAsyncMBC}
 \end{figure}
 
-Contrary to RESTful asynchronous communication, other microservice systems use message-based asynchronous communication.
+In addition to RESTful asynchronous communication, other microservice systems use message-based asynchronous communication.
 These systems use messages or events to facilitate communication between its microservices.
 These messages or events are typically sent using a messaging system (e.g., Java Message Service, JMS \footnote{https://www.oracle.com/technical-resources/articles/java/intro-java-message-service.html}) or a message broker (e.g., Apache Kafka \footnote{https://github.com/berndruecker/Dowing-retail/tree/master/kafka/java} or RabbitMQ \footnote{https://www.rabbitmq.com}).
 After the microservice has sent the message to the message broker, other microservices can consume the messages in the broker.

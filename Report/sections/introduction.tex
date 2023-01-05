@@ -10,22 +10,22 @@
 
 \section{Introduction}
 \label{cha:Introduction}
-Asynchronous microservice software-systems are becoming increasingly popular for building scalable and resilient distributed applications.
-These systems are composed of small, independent services that communicate with each other, e.g. through messages or HTTP-communication.
+Asynchronous microservices communicate with each other, e.g. through messages or HTTP-communication.
 The architecture of an asynchronous microservice system plays a crucial role in its design, development, and maintenance.
 It determines how the services are organized, how they interact with each other and with the outside world, and how they can evolve and adapt over time.
 
-In the context of continuous software engineering, where software is developed and deployed in a continuous and incremental manner, the architecture of an asynchronous microservice system is subject to erosion, i.e., the gradual divergence between the intended architecture and the implemented architecture over time \cite{DESILVA2012132}.
+In the context of continuous software engineering, where software is developed and deployed continuously, the architecture of an asynchronous microservice system is subject to erosion, i.e., the gradual divergence between the intended architecture and the implemented architecture over time \cite{DESILVA2012132}.
 This can happen due to a variety of factors, such as changes in the requirements, the environment, the technology, or the team.
-To manage erosion, we apply reverse engineering approaches to extract the architecture of the system.
+To get the up-to-date architecture, we apply reverse engineering approaches to extract the architecture of the system.
 
-One way to understand and document the architecture of an asynchronous microservice system is by extracting it from the codebase and other artifacts that describe the system.
-This is done for example via static code analysis, where artifacts are statically analyzed to detect the microservice components and the communication between them.
+One way to understand the architecture of an asynchronous microservice system is by extracting it from the codebase and other artifacts that describe the system.
+This can be achieved by static and dynamic analysis.
+Using static code analysis, artifacts are statically analyzed to detect the microservice components and the communication between them.
 Another way to extract the architecture is dynamic analysis, where we execute the system and observe the runtime behaviour, logs and other data to detect the architecture of the software-system.
 
-In this paper, we will compare five reverse engineering approaches that are capable of extracting the architecture of asynchronous microservice systems.
-In \autoref{cha:Foundation}, we will provide some foundation knowledge.
-In \autoref{cha:StudyDesign}, we will talk about the design and goal of this literature review and the selection of the papers.
-In \autoref{cha:Results}, we will present the results and compare them using five different aspects.
-We will discuss these results in \autoref{cha:Discussion}, followed by the related work in \autoref{cha:RelatedWork}.
-Then in \autoref{cha:Conclusion}, we conclude our results.
+In this paper, we compare five reverse engineering approaches that are capable of extracting the architecture of asynchronous microservice systems.
+In \autoref{cha:Foundation}, we provide some foundation knowledge.
+In \autoref{cha:StudyDesign}, we talk about the goal of this literature review and the selection of the papers.
+In \autoref{cha:Results}, we present the results and compare them using five different aspects.
+We discuss these results in \autoref{cha:Discussion}, followed by the related work in \autoref{cha:RelatedWork}.
+\autoref{cha:Conclusion} concludes our results.

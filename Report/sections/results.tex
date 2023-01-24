@@ -5,12 +5,12 @@ Each approach will be presented using five aspects:
 \begin{enumerate}
 	\item \textbf{Input} (e.g. source code or logs) \\
 		  The input of an extraction approach are the files or information, the approach requires to work.
-		  This can for example be static information, like the source code of the software-system, Docker configuration files and documentation, or the approach can require dynamic data, like runtime logs, communication tracing information or a list of registered services from a service discovery service.
+		  This can, for example, be static information, like the source code of the software-system, Docker configuration files and documentation, or the approach can require dynamic data, like runtime logs, communication tracing information or a list of registered services from a service discovery service.
 	\item \textbf{Approach} (how the extraction process works) \\
 	      An extraction approach can be broadly grouped into one of three categories.
 	      Static approaches only use static data (e.g., source code, configuration files) and do not require the system to be executed to extract the architecture.
 	      Dynamic approaches on the other hand, only use runtime data (e.g., logs, service discovery service responses) to analyze the software-system's architecture.
-	      In between, there are hybrid approaches that use both static and dynamic data to analyze the system. These hybrid approaches could for example detect the registered components statically from the source code and then monitor the runtime communication data to recognize the relationships between the components.
+	      In between, there are hybrid approaches that use both static and dynamic data to analyze the system. These hybrid approaches could, for example, detect the registered components statically from the source code and then monitor the runtime communication data to recognize the relationships between the components.
 	\item \textbf{Output} (e.g. PCM or UML) \\
 	      The output of the approach is whatever is the final result.
 	      For example, an approach could simply output an adjacency matrix, showing which components communicate with which other components.
@@ -34,11 +34,11 @@ Each approach will be presented using five aspects:
 \label{sec:Results:ARCHI4MOM}
 \textbf{Input.}
 The ARCHI4MOM approach extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} and therefore takes the same inputs.
-The first step in the ARCHI4MOM approach is to instrument the source code with the Jaeger tracing tool \footnote{https://www.jaegertracing.io/} to collect tracing data.
+The first step in the ARCHI4MOM approach is to instrument the source code with the Jaeger tracing tool \cite{Jaeger} to collect tracing data.
 Using the OpenTracing API, ARCHI4MOM then instruments all microservices to generate trace data, which can be used later to reconstruct the asynchronous communication between the microservices. \cite{Singh2022ARCHI4MOM}
 \\ \\
 \textbf{Approach.}
-ARCHI4MOM extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} to support asynchronous communication.
+ARCHI4MOM extends the PMX approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} to support asynchronous communication.
 This is achieved by adding a dependency to the OpenTracing API to each microservice to introduce a new set of information that was not present earlier \cite{Singh2022ARCHI4MOM}.
 This tracing data is then collected in the form of JavaScript Object Notation (JSON) files, which become the input of the next phase \cite{Singh2022ARCHI4MOM}.
 
@@ -56,7 +56,7 @@ The authors then implement additional PMX logic to be able to reconstruct asynch
 \cite{Singh2022ARCHI4MOM}.
 \\ \\
 \textbf{Output.}
-The output of the ARCHI4MOM approach is a Palladio Component Model (PCM) \cite{Singh2022ARCHI4MOM}.
+The output of the ARCHI4MOM approach is an instance of the Palladio Component Model (PCM) \cite{Singh2022ARCHI4MOM}.
 This PCM contains the extracted components, as well as the interfaces for communication between each other \cite{Singh2022ARCHI4MOM}.
 The communication channels are represented by \textit{DataChannel}s (representing the middleware) and \textit{DataInterface}s (representing the type of data the interface can send/receive), which the approach creates in the PCM repository as part of the extraction \cite{Singh2022ARCHI4MOM}.
 \\ \\
@@ -77,10 +77,10 @@ Using this plan, the authors then compare both sets of model elements (manual an
 \label{sec:Results:MiSAR}
 \textbf{Input.}
 MiSAR extracts and gathers different data from static artifacts.
-This data includes docker files that assemble the containers for the microservices, docker compose files that orchestrate multi-docker-container systems, java source code, maven pom.xml files, YAML configuration files, documentation and tool support \cite{Alshuqayran2018MiSAR}.
-The approach reverse engineers java source code using a tool called Enterprise architect \footnote{http://www.sparxsystems.com.au/products/ea/}, providing UML class diagrams from the source code \cite{Alshuqayran2018MiSAR}.
-Additionally, it uses Zipkin \footnote{https://zipkin.io} to trace communication between microservices to build a call graph \cite{Alshuqayran2018MiSAR}.
-The approach retrieves information about latencies using TCPDump \footnote{https://www.tcpdump.org} and extracts information about the ports, IP addresses of container, and connectivity between containers using the Sysdig tool \footnote{https://github.com/draios/sysdig} \cite{Alshuqayran2018MiSAR}.
+This data includes Docker files that assemble the containers for the microservices, Docker compose files that orchestrate multi-Docker-container systems, Java source code, Maven pom.xml files, YAML configuration files, documentation and tool support \cite{Alshuqayran2018MiSAR}.
+The approach reverse engineers Java source code using a tool called Enterprise Architect \cite{EnterpriseArchitect}, providing UML class diagrams from the source code \cite{Alshuqayran2018MiSAR}.
+Additionally, it uses Zipkin \cite{Zipkin} to trace communication between microservices to build a call graph \cite{Alshuqayran2018MiSAR}.
+The approach retrieves information about latencies using TCPDump \cite{TCPDump} and extracts information about the ports, IP addresses of container, and connectivity between containers using the Sysdig tool \cite{Sysdig} \cite{Alshuqayran2018MiSAR}.
 This information is all stored in a repository for further use.
 \\ \\
 \textbf{Approach.}
@@ -92,7 +92,7 @@ The first step is responsible for collecting the required input data, including 
 After all data has been collected, it is stored in a repository \cite{Alshuqayran2018MiSAR}.
 
 In step 2, the collected data is analyzed and combined \cite{Alshuqayran2018MiSAR}.
-The authors extract a static view of the system in form of UML class diagrams by using the reverse engineering tool Enterprise architect on the source code \cite{Alshuqayran2018MiSAR}.
+The authors extract a static view of the system in form of UML class diagrams by using the reverse engineering tool Enterprise Architect on the source code \cite{Alshuqayran2018MiSAR}.
 Additionally, the system is observed during runtime to perform a dynamic analysis \cite{Alshuqayran2018MiSAR}.
 For this purpose, Zipkin is used to trace the communication between the different components \cite{Alshuqayran2018MiSAR}.
 TCPDump and the Sysdig tool are used to measure the latencies of the communication and performance diagnostics at container level, respectively \cite{Alshuqayran2018MiSAR}.
@@ -108,7 +108,7 @@ For this purpose, the authors have selected the most commonly used concerns from
 
 The identified concerns are then grouped together in step 5, based on high level concerns that the authors have identified \cite{Alshuqayran2018MiSAR}.
 
-In the last step of phase 1, the authors look at the files that were extracted for each concept and analyzed them \cite{Alshuqayran2018MiSAR}.
+In the last step of phase 1, the authors look at the files that were extracted for each concept and analyze them \cite{Alshuqayran2018MiSAR}.
 Using these files, the authors defined mapping rules that map the architectural concepts to the implementation artifacts \cite{Alshuqayran2018MiSAR}.
 They then classified and grouped these mapping rules based on the architectural element, they output \cite{Alshuqayran2018MiSAR}.
 
@@ -153,7 +153,7 @@ This includes the internal behavior as well as the external service calls, the c
 
 For the second step, the approach aims to extract model parameters for performance prediction \cite{Brosig2011}.
 This is achieved by extracting branch probabilities and loop iteration numbers from the call paths \cite{Brosig2011}.
-For branching probabilities, mean values are used, whereas loop iteration numbers are represented by a Probability Mass Function (PMF) to allow for accurate representation of cases where a loop is for example either executed twice or ten times \cite{Brosig2011}.
+For branching probabilities, mean values are used, whereas loop iteration numbers are represented by a Probability Mass Function (PMF) to allow for accurate representation of cases where a loop is, for example, either executed twice or ten times \cite{Brosig2011}.
 Next, the approach tries to quantify the resource demands (e.g. CPU, HDD) of the components' internal computations \cite{Brosig2011}.
 This demand is represented by the total processing time minus the time spent waiting for the resource to become available \cite{Brosig2011}.
 These parameters are then averaged over the observed call paths \cite{Brosig2011}.
@@ -174,7 +174,7 @@ The end user for this approach is e.g. a software architect, which uses the perf
 \\ \\
 \textbf{Evaluation.}
 The evaluation of the approach was accomplished by implementing it and applying it to a case study of a Java Enterprise Edition application \cite{Brosig2011}.
-The application used was the SPECjEnterprise2010 benchmark \footnote{https://www.spec.org/jEnterprise2010/}.
+The application used was the SPECjEnterprise2010 benchmark \cite{SPECjEnterprise2010}.
 
 
 %%%%%%%%%%%%%
@@ -187,7 +187,7 @@ Microlyze uses runtime data from a service discovery service, as well as manual 
 \\ \\
 \textbf{Approach.}
 The Microlyze recovery approach is executed in six phases, which are meant to be executed continuously \cite{Kleehaus2018}.
-The first phase rebuilds the current system architecture by checking a service discovery service (e.g., Eureka \footnote{https://github.com/Netflix/eureka} or Consul \footnote{https://www.consul.io}) and updating the status of the services in the current architecture \cite{Kleehaus2018}.
+The first phase rebuilds the current system architecture by checking a service discovery service (e.g., Eureka \cite{Eureka} or Consul \cite{Consul}) and updating the status of the services in the current architecture \cite{Kleehaus2018}.
 
 The second phase uses the IP addresses and ports retrieved from the service discovery service to establish a link between the services and the hardware used \cite{Kleehaus2018}.
 Together with the IP addresses and ports, the approach installs monitoring agent on each hardware component to retrieve additional information about the hardware \cite{Kleehaus2018}.
@@ -195,7 +195,7 @@ Additionally, it installs a monitoring probe on each microservice to observe the
 The probe injects tracing data in the HTTP headers and therefore helps to gather timing data \cite{Kleehaus2018}.
 The approach then collects additional infrastructure and software-specific data (e.g., endpoint name, class, method, HTTP request) and attaches this information as annotations \cite{Kleehaus2018}.
 Using this data, the approach is then able to detect the dependencies between the microservices by following identifiers in the HTTP requests during runtime \cite{Kleehaus2018}.
-This tracing is done using zipkin \footnote{https://github.com/openzipkin/zipkin}, streamed via apache kafka to Microlyze and then stored in a cassandra database \cite{Kleehaus2018}.
+This tracing is done using Zipkin, streamed via apache kafka to Microlyze and then stored in a cassandra database \cite{Kleehaus2018}.
 Microlyze additionally classifies each service on basis of the distributed tracing data \cite{Kleehaus2018}.
 For example, if the first accessed microservice is identical in most requests, it is classified as a gateway service \cite{Kleehaus2018}.
 
@@ -206,7 +206,7 @@ The information about the user transactions is used to create an association bet
 
 The fourth phase is responsible for defining semantic descriptions to each business activity, that can be performed by a user (e.g. \textit{register}, \textit{open shopping cart}, etc.) \cite{Kleehaus2018}.
 
-After a user has augmented the business activities with descriptions, phase five is able to create a mapping between the business activities (``a sequence of related events that together contribute to serve a user request'' \cite{Kleehaus2018}) and the technical requests extracted by zipkin \cite{Kleehaus2018}.
+After a user has augmented the business activities with descriptions, phase five is able to create a mapping between the business activities (``a sequence of related events that together contribute to serve a user request'' \cite{Kleehaus2018}) and the technical requests extracted by Zipkin \cite{Kleehaus2018}.
 For this purpose, the authors enhanced the business process modeler with the regular expression language in order to describe technical requests \cite{Kleehaus2018}.
 These regular expressions are stored in the database and matched on new incoming transactions to detect, if they might refer to an already modeled business activity \cite{Kleehaus2018}.
 
@@ -216,15 +216,15 @@ It detects changes to the underlying infrastructure by changes in IP addresses o
 Those changes lead to automatic adaptions in the architecture model \cite{Kleehaus2018}.
 \\ \\
 \textbf{Output.}
-The approach displays the results of the architecture extraction via a webinterface to the user as an adjacency matrix \cite{Kleehaus2018}.
+The approach displays the results of the architecture extraction via a web interface to the user as an adjacency matrix \cite{Kleehaus2018}.
 \\ \\
 \textbf{End User.}
 The end users of the approach are administrators and enterprise or software architects \cite{Kleehaus2018}.
 \\ \\
 \textbf{Evaluation.}
-To evaluate the approach, the authors developed a prototype and applied it to the TUM LLCM platform \footnote{https://www.cs.cit.tum.de/bpm/krcmar/research/finished-projects/tum-llcm-tum-living-lab-connected-mobility/} \cite{Kleehaus2018}.
+To evaluate the approach, the authors developed a prototype and applied it to the TUM LLCM platform \cite{TUMLLCM} \cite{Kleehaus2018}.
 They developed a service called \textit{Travelcompanion} which is meant to form travel groups to save on travel costs \cite{Kleehaus2018}.
-To discover the relationships between the components, the authors produced traffic using JMeter \footnote{https://jmeter.apache.org} \cite{Kleehaus2018}.
+To discover the relationships between the components, the authors produced traffic using JMeter \cite{JMeter} \cite{Kleehaus2018}.
 After step three completed, the authors enhanced the technical transactions with a business semantic and mapped the business activities to user transactions \cite{Kleehaus2018}.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -239,7 +239,7 @@ Additionally, runtime communication between the microservices is collected and a
 \textbf{Approach.}
 The approach presented by Mayer and Weinreich works in three steps, which are modeled by three main components \cite{Mayer2018}.
 The first step---data collection---uses the \textit{Data Collection Library} to collect and provide static and runtime data for the architecture extraction components \cite{Mayer2018}.
-This library collects and provides service-, interaction-, and infrastructure-related information using Swagger \footnote{https://swagger.io} to generate API descriptions and infrastructure-specific information providers (e.g., configuration files) that are configured by the user \cite{Mayer2018}.
+This library collects and provides service-, interaction-, and infrastructure-related information using Swagger \cite{Swagger} to generate API descriptions and infrastructure-specific information providers (e.g., configuration files) that are configured by the user \cite{Mayer2018}.
 The second step---data aggregation---uses the \textit{Aggregation Service} to aggregate the information collected in the first step \cite{Mayer2018}.
 Lastly, the third step---data combination---uses the \textit{Management Service} to combine the information from the different microservices and store it in a data model \cite{Mayer2018}.
 
@@ -280,6 +280,8 @@ The authors then built a test scenario consisting of three microservices to test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Answering the Guiding Questions}
 \label{sec:Results:AnsweringRQ}
+
+We defined two questions to guide us through the review. After presenting the results of the review, we will now answer them.
 
 \subsubsection{Question 1}
 \textbf{What are the tools available for the extraction of asynchronous architectures of microservice systems?}

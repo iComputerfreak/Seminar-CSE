@@ -3,9 +3,9 @@ The presented approaches differ in the type of asynchronous communication they s
 ARCHI4MOM, MiSAR and the approach presented by Brosig et al. all support message-based asynchronous communication as presented in \autoref{sec:Foundation:AsyncCommunication:MBC}, while MICROLYZE and the approach presented by Mayer and Weinreich only support asynchronous communication via HTTP REST as explained in \autoref{sec:Foundation:AsyncCommunication:REST}.
 
 Additionally, the approaches can be grouped by the type of input they require.
-MiSAR and the approach presented by Mayer and Weinreich both require static data (e.g. source code) as well as dynamic/runtime data (e.g. tracing data, logs) \cite{Alshuqayran2018MiSAR,Mayer2018}.
+MiSAR and the approach presented by Mayer and Weinreich both require static data (e.g. source code) as well as dynamic/runtime data (e.g. tracing data, logs) \cite{Alshuqayran2018MiSAR,Mayer2018}. \\
 ARCHI4MOM, MICROLYZE and the approach presented by Brosig et al. on the other hand, only use runtime data to extract the architecture.
-The usage of dynamic data by all approaches is not unexpected.
+The usage of dynamic data by all approaches is expected.
 Asynchronous communication, message-based communication in particular, often requires the system to be executed for it to show the full communication dependencies between the microservices.
 \\
 
@@ -29,8 +29,8 @@ This makes it very suitable for integration in a continuous environment where th
 \\
 
 In terms of output, the approach by Mayer and Weinreich uses a dashboard that visualizes aggregated information about the system \cite{Mayer2018}.
-This allows even normal software practitioners to view and understand the data, the approach gathers and analyze potential problems.
-For example frequent communications between two modules could indicate tight coupling.
+This allows even normal software practitioners to view and understand the data, the approach gathers and analyzes potential problems.
+For example, frequent communications between two modules could indicate tight coupling.
 MICROLYZE on the other hand, also presents its generated adjacency matrix in a web application, but only displays information about which components communicate with each other.
 The adjacency matrix does not give any information about the response times or the amount of communication between the components.
 For this reason, it could be hard for a normal software practitioner to analyze the system and identify potential problems using this matrix.
@@ -41,7 +41,7 @@ For this reason, it could be hard for a normal software practitioner to analyze 
 
 
 
-A downside to ARCHI4MOM is that it does not support software-systems in which both synchronous and asynchronous communication is used \cite{Singh2022ARCHI4MOM}.
+A downside to ARCHI4MOM is that it does not support software-systems in which both synchronous and asynchronous communication are used \cite{Singh2022ARCHI4MOM}.
 
 
 

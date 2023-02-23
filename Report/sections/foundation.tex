@@ -3,7 +3,7 @@ Our work is based on several foundations, which we will discuss in the sections 
 \subsection{Microservice Architecture}
 \label{sec:Foundation:MicroserviceArchitecture}
 In a microservice architecture, the software consists of many small components (``microservices''), which operate independently of each other and communicate via messages \cite{Dragoni2017}.
-This software architecture style allows the construction of highly reusable components which focus on a single task (e.g. applying a watermark to a video).
+This software architecture style allows the construction of highly reusable components which focus on a single task.
 This loose coupling allows for independent teams to work on different components or even the use of off-the-shelf components.
 Also, scaling the application can be achieved by simply duplicating the bottlenecked microservices \cite{Dragoni2017}.
 Microservices use their provided- and required-interfaces to allow for the message-exchange with other components \cite{Singh2021}.
@@ -49,7 +49,9 @@ When the sender queries the provided location before the operation has finished,
 Once the operation on the server has finished, the provided location will return an HTTP Code 303 (See Other) to redirect the sender to the results \cite{Mayer2018}.
 This interaction is depicted in \autoref{fig:ImageAsyncHTTP}.
 
-Alternatively, the microservice may be required to provide a callback method (e.g. a web hook, \cite{Webhooks}) where the server can send the results once the operation has finished \cite{Mayer2018}. \\
+Alternatively, the microservice may be required to provide a callback method (e.g. a web hook, \cite{Webhooks}).
+In this case, the server accepts the request by the client and starts processing.
+When the operation is finished, the server can send the results directly back to the client using the callback method provided by the client in the request \cite{Mayer2018}. \\
 
 We refer to both of these communication methods as RESTful asynchronous communication in our paper.
 
@@ -68,6 +70,7 @@ We refer to both of these communication methods as RESTful asynchronous communic
   % Draw edges
   \draw [->] (microservice1) -- node[pos=.5, above, sloped] (TextNode) {send message} (messagebroker);
   \draw [->] (microservice2) -- node[pos=.5, above, sloped] (TextNode) {consume message} (messagebroker);
+  \draw [<-] (microservice2) -- node[pos=.5, below, sloped] (TextNode) {} (messagebroker);
 \end{tikzpicture}
 \caption{\textbf{Asynchronous Communication using a message broker.} \\
 Microservice 1 sends messages to the message broker. Microservice 2 consumes these messages by contacting the message broker.}
@@ -85,19 +88,19 @@ Using a message broker also allows for better system performance \cite{Singh2021
 
 \subsection{Reverse Engineering}
 \label{sec:Foundation:SAR}
-Reverse engineering is a Software Architecture Extraction (SAR) technique that uses the artifacts of the system (e.g., source code, logs) to analyze the system.
-Vital for building the architecture of the software-system is information about the communication between the different components.
-This information is extracted using either a static (using only static inputs, e.g. source code), dynamic (using runtime information, e.g. logs) or hybrid (using both) approach.
+Reverse engineering in software engineering is a Software Architecture Extraction (SAR) technique that uses the artifacts of the system (e.g., source code, logs) to analyze the system.
+It is important to know about the software components and their communication pattern to understand and refactor the system.
+In reverse engineering, this information is extracted using either a static (using only static inputs, e.g. source code), dynamic (using runtime information, e.g. logs) or hybrid (using both) approach.
 In the context of asynchronous communication, a static extraction algorithm would in the case of a RESTful asynchronous communication, analyze the HTTP calls made in code to determine the relationships between the components.
-In the case of message-based communication, a static approach is unable to extract a useful architecture, since message-based systems exchange those messages only at runtime and thus the required information about which components communicate with each other can only be retrieved as part of a dynamic or hybrid analysis. \cite{Singh2021,Mayer2018}
+In the case of message-based communication, a static approach does not provide all the required information to extract a useful architecture, since message-based systems exchange those messages only at runtime and thus the required information about which components communicate with each other can only be retrieved as part of a dynamic or hybrid analysis. \cite{Singh2021,Mayer2018}
 
 
 \subsection{Palladio Component Model}
 \label{sec:Foundation:PCM}
 %CG
 The Palladio Component Model (PCM) is a meta-model for the description of component-based software \cite{Becker2008}.
-It is used to predict the performance properties of component-based software at design-time by specifying a model of the system, its components and how the system is going to be used.
-A PCM consists of four main views that represent the aspects of the system.
+It is used to predict the performance properties of component-based software at design-time by specifying a model of the system, its components and the system behavior.
+A PCM consists of four main views that represent the system.
 The Component View represents the functional structure of the system, i.e. the components, their interfaces and, the dependencies between them.
 The Resource View represents the resources (e.g., CPU, memory, databases, libraries) required by the system.
 The Allocation View shows, which components are allocated to which resources.

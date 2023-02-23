@@ -1,29 +1,32 @@
 We classify the available tools in 5 categories.
-The result for which is presented in \autoref{table:results}.
+The classification results are presented in \autoref{table:results}.
 
 Each approach will be presented using five aspects:
 \begin{enumerate}
-	\item \textbf{Input} (e.g. source code or logs) \\
-		  The input of an extraction approach are the files or information, the approach requires to work.
-		  This can, for example, be static information, like the source code of the software-system, Docker configuration files and documentation, or the approach can require dynamic data, like runtime logs, communication tracing information or a list of registered services from a service discovery service.
+	\item \textbf{Input} (the input of the reverse engineering approach) \\
+		  There can be many inputs to an RE extraction approach.
+		  The inputs can be static information, like the source code of the software-system, Docker configuration files and documentation.
+		  In the case of a dynamic approach, the input is dynamic data, like runtime logs, communication tracing information or a list of registered services from a service discovery service.
 	\item \textbf{Approach} (how the extraction process works) \\
-	      An extraction approach can be broadly grouped into one of three categories.
+	      RE extraction approaches are classified into three categories.
 	      Static approaches only use static data (e.g., source code, configuration files) and do not require the system to be executed to extract the architecture.
 	      Dynamic approaches on the other hand, only use runtime data (e.g., logs, service discovery service responses) to analyze the software-system's architecture.
-	      In between, there are hybrid approaches that use both static and dynamic data to analyze the system. These hybrid approaches could, for example, detect the registered components statically from the source code and then monitor the runtime communication data to recognize the relationships between the components.
-	\item \textbf{Output} (e.g. PCM or UML) \\
-	      The output of the approach is whatever is the final result.
+	      In between, there are hybrid approaches that use both static and dynamic data to analyze the system.
+	      These hybrid approaches detect the registered components statically from the source code and then monitor the runtime communication data to recognize the relationships between the components.
+	\item \textbf{Output} (the expected output format of the RE extraction approach) \\
+	      The output of the RE extraction approach is used by the software architect or developer.
+	      Depending on the requirement, the output can have different formats.
 	      For example, an approach could simply output an adjacency matrix, showing which components communicate with which other components.
 	      A more complex output could be an UML diagram, depicting the components and their relationships graphically or even a web interface showing aggregated data about the analyzed system.
 	      Another possible output is a performance model or a database.
-	\item \textbf{End user} (who is the result intended for) \\
-		  The end user is the type of person that the output of the approach is intended for.
-		  In the case of an UML diagram, a normal software practitioner could use the output to understand the system.
+	\item \textbf{End user} (the intended stakeholder of the RE extraction result) \\
+		  Typically the software architect or the developer are the intended end users of the extracted architecture.
+		  In the case of an UML diagram, a developer could use the output to understand the system.
   		  With a performance model on the other hand, a software architect can predict the software-quality at design time.
-	\item \textbf{Evaluation} (how are the results evaluated) \\
+	\item \textbf{Evaluation} (the evaluation of the extracted results of the RE extraction approaches) \\
 		  Lastly, we will look at how the different approaches were evaluated.
 		  Examples for evaluation approaches include Precision/Recall/F1 calculation or the manual comparison of the extracted architecture with the documentation.
-		  We will only focus on the type of evaluation and how it was performed and not on the results of the evaluation.
+		  We will only focus on how the evaluation was performed and not on the results of the evaluation.
 \end{enumerate}
 
 
@@ -33,7 +36,7 @@ Each approach will be presented using five aspects:
 \subsection{ARCHI4MOM}
 \label{sec:Results:ARCHI4MOM}
 \textbf{Input.}
-The ARCHI4MOM approach extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} and therefore takes the same inputs.
+The ARCHI4MOM approach extends the Performance Model Extraction (PMX) approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} and therefore takes source code as the input.
 The first step in the ARCHI4MOM approach is to instrument the source code with the Jaeger tracing tool \cite{Jaeger} to collect tracing data.
 Using the OpenTracing API, ARCHI4MOM then instruments all microservices to generate trace data, which can be used later to reconstruct the asynchronous communication between the microservices. \cite{Singh2022ARCHI4MOM}
 \\ \\
@@ -42,8 +45,8 @@ ARCHI4MOM extends the PMX approach \cite{Walter2017PMX,Singh2022ARCHI4MOM} to su
 This is achieved by adding a dependency to the OpenTracing API to each microservice to introduce a new set of information that was not present earlier \cite{Singh2022ARCHI4MOM}.
 This tracing data is then collected in the form of JavaScript Object Notation (JSON) files, which become the input of the next phase \cite{Singh2022ARCHI4MOM}.
 
-The JSON files will then be used to analyze the structure of the traces.
-For message-based asynchronous communication, this presents a challenge since the information is distributed over different parts of the tracing data (called ``spans'') whereas using synchronous communication, it would be in a single span \cite{Singh2022ARCHI4MOM}.
+We then analyze the structure of the traces using the JSON files.
+For message-based asynchronous communication, this presents a challenge because the information is distributed over different parts of the tracing data (called ``spans'') whereas using synchronous communication, it would be in a single span \cite{Singh2022ARCHI4MOM}.
 To match this inter-component communication using middleware, the called method needs to be matched using tags provided by the OpenTracing API \cite{Singh2022ARCHI4MOM}.
 In the next step, the ARCHI4MOM approach looks for send operations that do not have information about the topic they send to \cite{Singh2022ARCHI4MOM}.
 A topic in this case is something a receiver can subscribe to \cite{Singh2022ARCHI4MOM}.
@@ -51,22 +54,21 @@ After subscribing to a topic, the subscriber then receives all messages that are
 ARCHI4MOM then fills in the missing topic information by retrieving it from other send operations in the tracing data \cite{Singh2022ARCHI4MOM}.
 Then the approach iterates over all sending spans that have a ``FOLLOWS-FROM'' or ``\textit{message-bus}'' relation tag and propagate their topics to the receiving spans \cite{Singh2022ARCHI4MOM}.
 
-To reconstruct message-based communication using PMX, the authors extended PMX to support the required Palladio Component Model elements \footnote{https://github.com/PalladioSimulator/Palladio-Addons-Indirections/tree/maste r/bundles/org.palladiosimulator.indirections/model}.
+To reconstruct message-based communication using PMX, the authors extended PMX to support the desired Palladio Component Model elements \footnote{https://github.com/PalladioSimulator/Palladio-Addons-Indirections/tree/maste r/bundles/org.palladiosimulator.indirections/model}.
 The authors then implement additional PMX logic to be able to reconstruct asynchronous architectures using these model elements.
 \cite{Singh2022ARCHI4MOM}.
 \\ \\
 \textbf{Output.}
 The output of the ARCHI4MOM approach is an instance of the Palladio Component Model (PCM) \cite{Singh2022ARCHI4MOM}.
 This PCM contains the extracted components, as well as the interfaces for communication between each other \cite{Singh2022ARCHI4MOM}.
-The communication channels are represented by \textit{DataChannel}s (representing the middleware) and \textit{DataInterface}s (representing the type of data the interface can send/receive), which the approach creates in the PCM repository as part of the extraction \cite{Singh2022ARCHI4MOM}.
+The communication channels are represented by \textit{DataChannel}s (representing the topics or message queues) and \textit{DataInterface}s (representing the type of data the interface can send/receive), which the approach creates in the PCM repository as part of the extraction \cite{Singh2022ARCHI4MOM}.
 \\ \\
 \textbf{End User.}
-The output of the ARCHI4MOM approach is a PCM.
-This model can then be used by software architects together with usage scenarios to create simulations, predicting the non-functional properties of the software.
+The ARCHI4MOM approach generates an instance of the PCM.
+This model can then be used by software architects together with usage scenarios to predict the performance of the system during design time.
 \\ \\
 \textbf{Evaluation.}
-To evaluate the approach, the authors created a manual PCM of the Flowing Retail sample application \footnote{https://github.com/berndruecker/flowing-retail/tree/master/kafka/java}.
-This manual model was then verified by three developers to be correct and compared to the automatically extracted model using a Goal Question Metric (GQM) plan \cite{VanSolingen2002GQM,Singh2022ARCHI4MOM}.
+To evaluate the approach, the authors created a manual PCM model of a sample application, which was then verified by three developers to be correct and compared to the automatically extracted model using a Goal Question Metric (GQM) plan \cite{VanSolingen2002GQM,Singh2022ARCHI4MOM}.
 Using this plan, the authors then compare both sets of model elements (manual and automatic) using Precision, Recall and F1 score \cite{Singh2022ARCHI4MOM}.
 
 
@@ -84,7 +86,7 @@ The approach retrieves information about latencies using TCPDump \cite{TCPDump} 
 This information is all stored in a repository for further use.
 \\ \\
 \textbf{Approach.}
-MiSAR is a manual approach that is executed in two phases \cite{Alshuqayran2018MiSAR}.
+MiSAR is a static and manual architecture extraction approach that is executed in two phases \cite{Alshuqayran2018MiSAR}.
 The first phase (Recovery Design, RD) defines architectural concepts, which are extracted in the second phase (Recovery Execution, RE) \cite{Alshuqayran2018MiSAR}.
 
 Phase 1 is executed in six steps.
@@ -97,7 +99,7 @@ Additionally, the system is observed during runtime to perform a dynamic analysi
 For this purpose, Zipkin is used to trace the communication between the different components \cite{Alshuqayran2018MiSAR}.
 TCPDump and the Sysdig tool are used to measure the latencies of the communication and performance diagnostics at container level, respectively \cite{Alshuqayran2018MiSAR}.
 
-The extracted information, together with the gathered information from step 1 is then used in the third step to determine the architectural concepts.
+The extracted information is combined with the gathered information from step 1 and is then used in the third step to determine the architectural concepts.
 This step focuses on bottom-up (from code to model) and top-down (from model to code) analysis to identify the architectural concepts used \cite{Alshuqayran2018MiSAR}.
 
 The next step, step 4, then defines the architectural concerns \cite{Alshuqayran2018MiSAR}.
@@ -117,15 +119,15 @@ The person executing the approach validates the results and refines the mapping 
 This process is repeated until the output is sufficient \cite{Alshuqayran2020Thesis}.
 \\ \\
 \textbf{Output.}
-The output of phase 2 is an instance diagram equivalent to an UML object diagram \cite{Alshuqayran2020Thesis}.
+The output of MiSAR is an instance diagram equivalent to an UML object diagram \cite{Alshuqayran2020Thesis}.
 The diagram conforms to the Platform Independent Model (PIM) metamodel, which is a specific set of rules and guidelines for creating models that can be used to describe systems in a platform-agnostic way \cite{PIM}.
 \\ \\
 \textbf{End User.}
-The end user for the output of this approach are the software architects that can use the architecture model to understand and refine the system.
+The intended end user of this approach are the software architects that can use the architecture model to understand and refine the system.
 \\ \\
 \textbf{Evaluation.}
 The approach was evaluated  by comparing the output of the approach to the documentation of the actual system architecture \cite{Alshuqayran2020Thesis}.
-The system used for evaluation was TrainTicket \cite{Zhou2018TrainTicket}, a benchmarking system that already provided extensive documentation about the system architecture.
+The system the authors used for evaluation was TrainTicket \cite{Zhou2018TrainTicket}, a benchmarking system that already provided extensive documentation about the system architecture.
 The authors measure the deviations from the documentation, additional elements and missing elements and calculated the Precision, Recall and F1-Score to quantify their approach \cite{Alshuqayran2020Thesis}.
 
 
@@ -136,17 +138,18 @@ The authors measure the deviations from the documentation, additional elements a
 \label{sec:Results:Brosig}
 \textbf{Input.}
 The approach by Brosig et al. uses monitoring data collected at runtime to extract the effective architecture \cite{Israr2007interaction} of the system.
-For the detection of the component boundaries, either static code analysis on the source code can be used, or the boundaries can be manually defined by a software architect \cite{Brosig2011}.
+For the detection of the component boundaries, the approach uses either static code analysis on the source code, or a software architect can manually define the boundaries \cite{Brosig2011}.
 \\ \\
 \textbf{Approach.}
 % only considers parts effectively used at runtime
-The approach presented by Brosig et al. only extracts the effective architecture \cite{Israr2007interaction} of the system, meaning that only parts that are effectively used at runtime are considered \cite{Brosig2011}.
+The approach presented by Brosig et al. only extracts the effective architecture \cite{Israr2007interaction} of the system, meaning that only parts that are effectively used at runtime during the extraction are considered \cite{Brosig2011}.
+Component communication can only be extracted, if the specific components actually communicate during the extraction approach.
 The first step is the extraction of the effective architecture.
 Before the extraction process can begin, component boundaries, which separate components as single entities from the point of view of the system's architect, need to be defined \cite{Brosig2011}.
 This can be either done manually by a software architect or automatically using static code analysis \cite{Brosig2011}.
 After the system boundaries have been determined, the running system is monitored and the communication between the components is traced \cite{Brosig2011}.
 The resulting \textit{event records} (representing entries or exits of components) are grouped together into \textit{call path event record sets} which contain event records that were triggered by the same system request \cite{Brosig2011}.
-This data can then be used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided-interface calls.
+This data is then used to obtain a call path \cite{Brosig2011} as well as a list of external services, a component's provided-interface calls.
 To extract an accurate representation of the system's components and connections between them, a representative usage profile has to be chosen, as the extraction only captures the actual communication that happens during the extraction approach \cite{Brosig2011}.
 After the components and their connection have been extracted, the component-internal performance-relevant control flow has to be modeled.
 This includes the internal behavior as well as the external service calls, the component makes \cite{Brosig2011}.
@@ -162,19 +165,17 @@ In this case, the dependency has to be known a-priori for the approach to quanti
 
 In the third step, the performance model is calibrated by comparing its predictions with measurements on the real system \cite{Brosig2011}.
 The correction to be done when measuring a deviation between the prediction and the measurement is done by increasing a factor of overhead and accounting for delays produced by the middleware stack, the system runs on \cite{Brosig2011}.
-% Continue reading Proof of Concept for more infos
 \\ \\
 \textbf{Output.}
-% Output is PCM
 The output of the approach by Brosig et al. is a performance model \cite{Brosig2011}.
-In their proof-of-concept implementation, they generate a Palladio Component Model (PCM) \cite{Brosig2011}.
+As a proof-of-concept implementation, they generate a Palladio Component Model (PCM) instance \cite{Brosig2011}.
 \\ \\
 \textbf{End User.}
-The end user for this approach is e.g. a software architect, which uses the performance model to predict software quality attributes.
+The end user for this approach is e.g. a software architect, which uses the performance model to predict software performance and other quality attributes.
 \\ \\
 \textbf{Evaluation.}
 The evaluation of the approach was accomplished by implementing it and applying it to a case study of a Java Enterprise Edition application \cite{Brosig2011}.
-The application used was the SPECjEnterprise2010 benchmark \cite{SPECjEnterprise2010}.
+The case study application used was the SPECjEnterprise2010 benchmark \cite{SPECjEnterprise2010}.
 
 
 %%%%%%%%%%%%%
@@ -233,7 +234,7 @@ After step three completed, the authors enhanced the technical transactions with
 \subsection{Approach by Mayer and Weinreich}
 \label{sec:Results:Mayer}
 \textbf{Input.}
-The approach uses static information, provided by configuration files and static information about services (e.g., name, version, etc.) \cite{Mayer2018}.
+The approach uses static information from configuration files and static information about services (e.g., name, version, etc.) \cite{Mayer2018}.
 Additionally, runtime communication between the microservices is collected and aggregated \cite{Mayer2018}.
 \\ \\
 \textbf{Approach.}
@@ -264,7 +265,8 @@ Lastly, the Aggregation Service sends these aggregated requests to the \textit{M
 The \textit{Management Service} can also use this information to mark services as inactive, if it receives no runtime information anymore \cite{Mayer2018}.
 \\ \\
 \textbf{Output.}
-The output of this approach is a database containing a directed graph that represents the system's architecture, as well as aggregated runtime information (e.g., response times) about the different requests \cite{Mayer2018}.
+The output of this approach is a database containing a directed graph that represents the system's architecture \cite{Mayer2018}.
+The graph is annotated with aggregated runtime information (e.g., response times) about the different requests \cite{Mayer2018}.
 This information is visualized in a web interface.
 \\ \\
 \textbf{End User.}
@@ -281,18 +283,18 @@ The authors then built a test scenario consisting of three microservices to test
 \subsection{Answering the Guiding Questions}
 \label{sec:Results:AnsweringRQ}
 
-We defined two questions to guide us through the review. After presenting the results of the review, we will now answer them.
+In this section, we briefly discuss the results obtained from our guiding questions.
 
 \subsubsection{Question 1}
 \textbf{What are the tools available for the extraction of asynchronous architectures of microservice systems?}
 \\ \\
-In the previous sections, we presented five approaches that are able to extract the architecture of microservice systems.
+In the previous sections, we presented five approaches for the architecture extraction of microservice systems.
 Each of these systems is able to handle asynchronous REST communication and in the case of \cite{Singh2022ARCHI4MOM,Alshuqayran2018MiSAR,Brosig2011}, the approaches also support the extraction of message-based asynchronous communication architectures as described in \autoref{sec:Foundation:AsyncCommunication:MBC}.
 
 \subsubsection{Question 2}
-\textbf{To what extend do the tools support asynchronous software architecture extraction?}
+\textbf{To what extend do these tools support asynchronous software architecture extraction?}
 \\ \\
-The extend to which the approaches support the extraction of asynchronous architecture differs.
+The extend to which the approaches support the extraction of asynchronous architectures differs.
 
 ARCHI4MOM \cite{Singh2022ARCHI4MOM}, MiSAR \cite{Alshuqayran2018MiSAR} and the approach presented by Brosig \cite{Brosig2011} all support the extraction of architectures using message-based asynchronous communication.
 
